@@ -3,52 +3,35 @@ import Layout from "../layouts/Layout.astro";
 import Container from "../components/shared/Container.astro";
 import Title from "../components/shared/Title.astro";
 import Paragraph from "../components/shared/Paragraph.astro";
-
-const posts = [
-  {
-    title: "How to Sell on TikTok Shop USA Without U.S. Citizenship",
-    description: "Step-by-step guide for creators and international brands.",
-    slug: "how-to-sell-on-tiktok-shop",
-    date: "May 2, 2025",
-    readTime: "3 min",
-    category: "TikTok Shop",
-    image: "/images/tiktokcanadaban.webp"
-  },
-  {
-    title: "TikTok Shop Canada: How Canadian Businesses Can Start Selling in 2025",
-    description: "Everything you need to know about verifying your TikTok Shop account as an international seller.",
-    slug: "tiktok-shop-canada",
-    date: "October 04, 2025",
-    readTime: "4 min",
-    category: "Compliance",
-    image: "/images/dev-with-c-1.webp"
-  }
-];
+import { getBlogPosts } from '../lib/sanity/content.server';
+import { formatDate, readingTime } from '../lib/sanity/content-utils';
+import { imageUrl } from '../lib/sanity/image';
+const posts = await getBlogPosts();
 ---
 
-<Layout title="Blog">
+<Layout title="Blog" description="Explore guides, insights, and TikTok Shop strategies from LaunchLegit.">
 
-<section id="blog" class="relative pt-32 lg:pt-36 pb-20 mb-0"> <!-- add pb-20 (or pb-24) -->
-      <Container class="space-y-16">
+<section id="blog" class="relative pt-32 lg:pt-36 pb-20 mb-0">
+      <Container className="space-y-16">
         <div class="text-center max-w-2xl mx-auto space-y-4">
           <Title>All Blog Posts</Title>
           <Paragraph>Explore guides, insights, and TikTok Shop strategies.</Paragraph>
         </div>
-  
+
         <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto mt-10">
           {posts.map((post) => (
             <div class="bg-box-bg border border-box-border rounded-xl overflow-hidden shadow-md hover:shadow-xl transition">
               <a href={`/blog/${post.slug}`}>
-                <img src={post.image} alt={post.title} class="w-full h-56 object-cover" />
+                {(post.coverImage?.asset || post.localCoverImage) && <img src={post.localCoverImage || imageUrl(post.coverImage!, 1000, 500)} alt={post.coverImage?.alt || post.localCoverAlt || post.title} width="1000" height="500" loading="lazy" decoding="async" class="w-full h-56 object-cover" />}
               </a>
               <div class="p-6 space-y-3">
                 <a href={`/blog/${post.slug}`}>
                   <h3 class="text-2xl font-bold text-heading-1 hover:underline">{post.title}</h3>
                 </a>
                 <div class="text-sm text-heading-3 flex flex-wrap gap-2">
-                  <span>{post.date}</span><span>•</span><span>{post.readTime}</span><span>•</span><span>{post.category}</span>
+                  <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time><span>•</span><span>{readingTime(post.body)}</span><span>•</span><span>{post.category}</span>
                 </div>
-                <p class="text-sm text-body dark:text-white">{post.description}</p>
+                <p class="text-sm text-heading-3">{post.description}</p>
                 <a href={`/blog/${post.slug}`} class="text-primary font-medium text-sm hover:underline inline-block mt-2">
                   Read more →
                 </a>
@@ -56,7 +39,8 @@ const posts = [
             </div>
           ))}
         </div>
+        {posts.length === 0 && <p class="text-center text-heading-3">New articles are on the way. Check back soon.</p>}
       </Container>
     </section>
   </Layout>
-  
+

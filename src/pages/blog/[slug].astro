@@ -1,0 +1,32 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import Container from '../../components/shared/Container.astro';
+import ArticleBody from '../../components/content/ArticleBody.astro';
+import { getBlogPosts } from '../../lib/sanity/content.server';
+import { formatDate, readingTime } from '../../lib/sanity/content-utils';
+import { imageUrl } from '../../lib/sanity/image';
+
+export const getStaticPaths = (async () => {
+  const posts = await getBlogPosts();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { post } = Astro.props;
+const socialImage = post.localCoverImage || (post.coverImage?.asset ? imageUrl(post.coverImage, 1200, 630) : undefined);
+---
+<Layout title={post.seoTitle || post.title} description={post.seoDescription || post.description} image={socialImage} ogType="article" publishedAt={post.publishedAt}>
+  <article class="pt-32 pb-16 md:pt-36 md:pb-24 bg-body min-h-screen">
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <a href="/blog" class="inline-block mb-6 text-primary hover:underline">← All blog posts</a>
+        <h1 class="text-4xl font-bold text-heading-1 mb-4">{post.title}</h1>
+        <p class="text-heading-3 mb-8 flex flex-wrap gap-2">
+          <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time><span>•</span><span>{readingTime(post.body)}</span><span>•</span><span>{post.category}</span>
+        </p>
+        <ArticleBody value={post.body} />
+      </div>
+    </Container>
+  </article>
+</Layout>

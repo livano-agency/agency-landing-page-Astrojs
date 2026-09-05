@@ -1,0 +1,8 @@
+---
+import type { MarkProps } from 'astro-portabletext/types';
+import { safeHref } from '../../lib/sanity/content-utils';
+type Props = MarkProps<{ href?: string; openInNewTab?: boolean }>;
+const { node } = Astro.props;
+const href = safeHref(node.markDef?.href);
+---
+{href ? <a href={href} target={node.markDef?.openInNewTab ? '_blank' : undefined} rel={node.markDef?.openInNewTab ? 'noopener noreferrer' : undefined}><slot /></a> : <slot />}

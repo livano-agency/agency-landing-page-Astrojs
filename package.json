@@ -2,19 +2,40 @@
   "name": "agencex-astro",
   "type": "module",
   "version": "0.0.5",
+  "engines": { "node": ">=22.12.0" },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "build:local": "SANITY_CONTENT_SOURCE=local astro build",
+    "dev:local": "SANITY_CONTENT_SOURCE=local astro dev",
+    "studio": "npm --prefix studio run dev",
+    "studio:build": "npm --prefix studio run build",
+    "sanity:typegen": "npm --prefix studio run typegen",
+    "test": "node --experimental-strip-types --test tests/content.test.ts",
+    "test:built": "node --experimental-strip-types --test tests/built-content.test.ts",
+    "test:published": "SANITY_CONTENT_SOURCE=sanity node --experimental-strip-types --test tests/built-content.test.ts"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.0",
+    "@sanity/client": "^8.5.0",
+    "@sanity/image-url": "^2.1.1",
     "astro": "^5.4.1",
+    "astro-portabletext": "^1.0.0",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
+    "groq": "^6.12.0",
     "path": "^0.12.7",
     "tailwindcss": "^3.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "groq-js": "^2.0.0",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.3"
   }
 }

@@ -1,0 +1,1140 @@
+{
+  "posts": [
+    {
+      "_type": "blogPost",
+      "migrationSource": "legacy-blog/tiktok-shop-canada",
+      "slug": {
+        "_type": "slug",
+        "current": "tiktok-shop-canada"
+      },
+      "title": "TikTok Shop Canada: How Canadian Businesses Can Start Selling in 2025",
+      "publishedAt": "2025-10-04T00:00:00Z",
+      "description": "TikTok Shop isn’t live in Canada yet — but smart brands sell through the U.S. Here’s how to launch, register, and start scaling fast.",
+      "localCoverImage": "/images/dev-with-c-1.webp",
+      "category": "Cross-Border E-Commerce",
+      "coverImage": {
+        "_type": "contentImage",
+        "alt": "TikTok website with a United States flag graphic"
+      },
+      "body": [
+        {
+          "_key": "k1",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "TikTok Shop has quickly become one of the most powerful e-commerce platforms worldwide, but here’s the catch:",
+              "_key": "k2"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": " TikTok Shop is not officially available in Canada yet.",
+              "_key": "k3"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " Canadian businesses cannot directly register with a Canadian business license. However, many Canadian entrepreneurs are already finding ways to sell on TikTok by registering through the United States, unlocking the same opportunities as U.S. sellers.",
+              "_key": "k4"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k7",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "In this guide, we’ll walk you through everything you need to know about",
+              "_key": "k8"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": " TikTok Shop Canada ",
+              "_key": "k9"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "in 2025 — from requirements to setup, and how you can start selling even before the platform officially launches in Canada.",
+              "_key": "k10"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k11",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Why Canadian Businesses Should Care About TikTok Shop",
+              "_key": "k12"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h2"
+        },
+        {
+          "_key": "k15",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Market growth:",
+              "_key": "k16"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " TikTok Shop generated billions in sales (GMV) across key categories like beauty, wellness, and apparel.",
+              "_key": "k17"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k18",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Influencer partnerships:",
+              "_key": "k19"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " Collaborate with U.S. TikTok creators who can drive traffic and sales.",
+              "_key": "k20"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k21",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "The Halo Effect:",
+              "_key": "k22"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " Exposure on TikTok often increases sales on Amazon, Shopify, and other platforms.",
+              "_key": "k23"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k24",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Early mover advantage:",
+              "_key": "k25"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " Canadian businesses that get in now will already have traction when TikTok Shop Canada officially launches.",
+              "_key": "k26"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k27",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Requirements for Canadian Sellers",
+              "_key": "k28"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h2"
+        },
+        {
+          "_key": "k31",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "To sell on TikTok Shop as a Canadian business, you’ll need to qualify under",
+              "_key": "k32"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": " U.S. seller requirements ",
+              "_key": "k33"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": ":",
+              "_key": "k34"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k37",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "U.S. LLC or Corporation",
+              "_key": "k38"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k39",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "EIN (Employer Identification Number)",
+              "_key": "k40"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k41",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "U.S. Bank Account",
+              "_key": "k42"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k43",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "U.S. Address or Representative",
+              "_key": "k44"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k45",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Stock in the U.S. — While you can technically ship from Canada, you may face",
+              "_key": "k46"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": " longer delivery times",
+              "_key": "k47"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " and potential",
+              "_key": "k48"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": " tariffs or customs fees.",
+              "_key": "k49"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " Most sellers place inventory in U.S. warehouses or 3PLs for faster shipping and smoother operations.",
+              "_key": "k50"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k51",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Step-by-Step: How to Open TikTok Shop from Canada",
+              "_key": "k52"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h2"
+        },
+        {
+          "_key": "k55",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Form a U.S. LLC",
+              "_key": "k56"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " — States like Delaware and Wyoming are common choices.",
+              "_key": "k57"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "number"
+        },
+        {
+          "_key": "k58",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Apply for an EIN",
+              "_key": "k59"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " — Required for payouts and tax purposes.",
+              "_key": "k60"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "number"
+        },
+        {
+          "_key": "k61",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Open a U.S. Bank Account",
+              "_key": "k62"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " — Essential for receiving payments.",
+              "_key": "k63"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "number"
+        },
+        {
+          "_key": "k64",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Place Inventory in the U.S.",
+              "_key": "k65"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " — Use 3PLs or fulfillment centers to store products domestically and avoid tariffs.",
+              "_key": "k66"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "number"
+        },
+        {
+          "_key": "k67",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Register on TikTok Seller Center",
+              "_key": "k68"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " with your U.S. credentials.",
+              "_key": "k69"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "number"
+        },
+        {
+          "_key": "k70",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Start Selling",
+              "_key": "k71"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " — Upload products, create offers, and work with TikTok creators.",
+              "_key": "k72"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "number"
+        },
+        {
+          "_key": "k73",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "FAQ: TikTok Shop Canada",
+              "_key": "k74"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h2"
+        },
+        {
+          "_key": "k77",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "1. Is TikTok Shop available in Canada?",
+              "_key": "k78"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h3"
+        },
+        {
+          "_key": "k81",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "No, TikTok Shop is not officially available in Canada yet. Canadian sellers can still participate by setting up a U.S. business entity and registering as U.S. sellers.",
+              "_key": "k82"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k85",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "2. Do I need a U.S. company to sell on TikTok Shop from Canada?",
+              "_key": "k86"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h3"
+        },
+        {
+          "_key": "k89",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Yes. You’ll need to form a U.S. LLC or corporation, get an EIN, and open a U.S. bank account to qualify.",
+              "_key": "k90"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k93",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "3. Can I sell on TikTok Shop without stock in the U.S.?",
+              "_key": "k94"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h3"
+        },
+        {
+          "_key": "k97",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Yes, you can ship from Canada, but it’s not ideal. Cross-border shipping often means slower delivery and potential tariffs or customs fees. Most Canadian sellers store products in U.S. warehouses or 3PLs to ensure faster delivery and a better customer experience.",
+              "_key": "k98"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k101",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "4. How do Canadian sellers get paid on TikTok Shop?",
+              "_key": "k102"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h3"
+        },
+        {
+          "_key": "k105",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "TikTok Shop only pays out to U.S. bank accounts, which means Canadian businesses must open a U.S. account (or work with an agency that provides this solution).",
+              "_key": "k106"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k109",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "5. When will TikTok Shop officially launch in Canada?",
+              "_key": "k110"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h3"
+        },
+        {
+          "_key": "k113",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "TikTok has not announced an official launch date for Canada. However, demand is growing, and many expect expansion after the success in the U.S. and U.K.",
+              "_key": "k114"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k117",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "6. Can agencies help Canadians get on TikTok Shop?",
+              "_key": "k118"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h3"
+        },
+        {
+          "_key": "k121",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Yes. Some agencies specialize in helping Canadian businesses set up U.S. entities, bank accounts, and TikTok Shop stores to simplify the process.",
+              "_key": "k122"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k123",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "✅ ",
+              "_key": "k124"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Key Takeaway:",
+              "_key": "k125"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " While ",
+              "_key": "k126"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "TikTok Shop Canada",
+              "_key": "k127"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " isn’t officially live, Canadian entrepreneurs don’t have to wait. By setting up in the U.S. — with stock placed in American warehouses to ensure smooth logistics and avoid tariffs — you can start selling today and be ready to dominate when the platform eventually expands north.",
+              "_key": "k128"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        }
+      ],
+      "seoTitle": null,
+      "seoDescription": null
+    },
+    {
+      "_type": "blogPost",
+      "migrationSource": "legacy-blog/how-to-sell-on-tiktok-shop",
+      "slug": {
+        "_type": "slug",
+        "current": "how-to-sell-on-tiktok-shop"
+      },
+      "title": "How Canadian E-Commerce Brands Can Launch a TikTok Shop in the USA",
+      "publishedAt": "2025-05-02T00:00:00Z",
+      "description": "Step-by-step guide for Canadian brands launching a TikTok Shop in the United States.",
+      "localCoverImage": "/images/tiktokcanadaban.webp",
+      "category": "Cross-Border E-Commerce",
+      "coverImage": {
+        "_type": "contentImage",
+        "alt": "TikTok logo on a phone in front of a Canadian flag"
+      },
+      "body": [
+        {
+          "_key": "k2",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Double Your Revenue with TikTok Shop USA",
+              "_key": "k3"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h2"
+        },
+        {
+          "_key": "k6",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "TikTok Shop USA already processes ",
+              "_key": "k7"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "billions",
+              "_key": "k8"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " in GMV, and early Canadian adopters routinely match their domestic sales within a single quarter. Skipping this market is like leaving cash on the table.",
+              "_key": "k9"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k12",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "The good news? Launching south of the border is easier than you think—especially when LaunchLegit handles the heavy lifting.",
+              "_key": "k13"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k14",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "What It Takes to Launch",
+              "_key": "k15"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h2"
+        },
+        {
+          "_key": "k18",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "To open a U.S. TikTok Shop you need five essentials: a U.S. LLC, an EIN, a 25 % on‑paper U.S. shareholder, a U.S. bank account, and a verified TikTok Seller Center profile. LaunchLegit delivers each piece as a single, done‑for‑you package—so you spend zero hours on paperwork and 100 % on scaling your brand.",
+              "_key": "k19"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k20",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Why Waiting Costs You Money",
+              "_key": "k21"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h2"
+        },
+        {
+          "_key": "k24",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Every month you delay your U.S. launch, thousands of American shoppers buy from competitors. With TikTok pushing in‑app checkout aggressively, early Canadian brands are already seeing ",
+              "_key": "k25"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "40‑60 % of their total sales",
+              "_key": "k26"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " come from the U.S. channel alone.",
+              "_key": "k27"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k30",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "TikTok’s algorithm favours local inventory and U.S. dollar pricing, so having a U.S.‑verified shop isn’t just “nice to have” — it’s the difference between getting surfaced to American buyers or getting buried.",
+              "_key": "k31"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k34",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "LaunchLegit’s average client timeline is 21 days from signature to first sale. The sooner you start, the sooner you tap a market ten times the size of Canada’s.",
+              "_key": "k35"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k36",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "LaunchLegit: Your Turn‑Key U.S. TikTok Shop Partner",
+              "_key": "k37"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "h2"
+        },
+        {
+          "_key": "k40",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "LaunchLegit handles ",
+              "_key": "k41"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "em"
+              ],
+              "text": "every",
+              "_key": "k42"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " TikTok Shop requirement for non‑U.S. sellers—nothing outsourced, no hidden fees.",
+              "_key": "k43"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal"
+        },
+        {
+          "_key": "k46",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Form your U.S. LLC ",
+              "_key": "k47"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "em"
+              ],
+              "text": "(California / Delaware)",
+              "_key": "k48"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k49",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Provide a vetted U.S. local resident shareholder (25 % paper stake, 0 % profit share)",
+              "_key": "k50"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k51",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Draft attorney‑prepared agreements to protect your ownership",
+              "_key": "k52"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k53",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Register and verify your TikTok Shop using the shareholder’s U.S. phone + email",
+              "_key": "k54"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k55",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Open a U.S. bank account for payouts",
+              "_key": "k56"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k57",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Set up a U.S. return address and 3PL connection",
+              "_key": "k58"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k59",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Monthly compliance call & weekly account check‑ins",
+              "_key": "k60"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k61",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [],
+              "text": "Keep all your personal info 100 % confidential",
+              "_key": "k62"
+            }
+          ],
+          "markDefs": [],
+          "_type": "block",
+          "style": "normal",
+          "level": 1,
+          "listItem": "bullet"
+        },
+        {
+          "_key": "k65",
+          "children": [
+            {
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Ready to go live?",
+              "_key": "k66"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " ",
+              "_key": "k67"
+            },
+            {
+              "_type": "span",
+              "marks": [
+                "k1"
+              ],
+              "text": "Schedule a free 15‑minute call",
+              "_key": "k68"
+            },
+            {
+              "_type": "span",
+              "marks": [],
+              "text": " and we’ll walk you through your launch timeline.",
+              "_key": "k69"
+            }
+          ],
+          "markDefs": [
+            {
+              "_key": "k1",
+              "_type": "link",
+              "href": "/#calendly-section"
+            }
+          ],
+          "_type": "block",
+          "style": "normal"
+        }
+      ],
+      "seoTitle": null,
+      "seoDescription": null
+    }
+  ],
+  "useCases": [
+    {
+      "_type": "useCase",
+      "migrationSource": "legacy-case-study/french-wellness",
+      "title": "Helping a French Wellness Brand Prepare for TikTok Shop USA",
+      "introduction": "A French health and wellness brand came to LaunchLegit ready to sell in the U.S. They already had their company and EIN in place, but needed the right operational setup to launch properly.",
+      "brandOrigin": "France",
+      "industry": "Health & Wellness",
+      "targetMarket": "United States",
+      "challenge": "The brand had the legal foundation to operate, but needed a reliable U.S. go-to-market setup for TikTok Shop, including the right tech stack, platform readiness, and representative support.",
+      "deliverables": [
+        "Built an end-to-end tech setup for selling through TikTok Shop USA.",
+        "Provided a U.S. representative from the LaunchLegit founding team.",
+        "Guided the brand through TikTok Shop requirements using our partner agency relationship with TikTok Shop."
+      ],
+      "outcomeTitle": "A compliant U.S. launch foundation for a brand entering a new market.",
+      "outcomeDescription": "LaunchLegit equipped the brand with the infrastructure and representation needed to move from existing company paperwork to an active U.S. TikTok Shop launch path.",
+      "whyItWorked": "The setup combined legal readiness, operational tooling, U.S. representation, and direct TikTok Shop partner agency support.",
+      "showOnHomepage": true,
+      "displayOrder": 0
+    }
+  ]
+}

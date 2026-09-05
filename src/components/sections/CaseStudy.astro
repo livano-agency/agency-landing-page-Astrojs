@@ -1,0 +1,85 @@
+---
+import Container from "../shared/Container.astro";
+import Paragraph from "../shared/Paragraph.astro";
+import { getHomeUseCases } from "../../lib/sanity/content.server";
+
+const useCases = await getHomeUseCases();
+---
+
+<section id="case-study">
+  <Container className="space-y-20">
+    {useCases.map((useCase) => <div class="space-y-10">
+    <div class="max-w-3xl space-y-4">
+      <span class="inline-flex w-max rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
+        Case Study
+      </span>
+      <h2 class="text-heading-1 font-semibold text-2xl sm:text-3xl md:text-4xl">{useCase.title}</h2>
+      <Paragraph>
+        {useCase.introduction}
+      </Paragraph>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
+      <article class="rounded-3xl border border-box-border bg-box-bg p-5 shadow-lg shadow-box-shadow sm:p-6 lg:p-8">
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="rounded-2xl border border-box-border bg-body p-4">
+            <p class="text-sm font-semibold text-primary">Brand Origin</p>
+            <p class="mt-2 text-lg font-semibold text-heading-2">{useCase.brandOrigin}</p>
+          </div>
+          <div class="rounded-2xl border border-box-border bg-body p-4">
+            <p class="text-sm font-semibold text-primary">Category</p>
+            <p class="mt-2 text-lg font-semibold text-heading-2">{useCase.industry}</p>
+          </div>
+          <div class="rounded-2xl border border-box-border bg-body p-4">
+            <p class="text-sm font-semibold text-primary">Target Market</p>
+            <p class="mt-2 text-lg font-semibold text-heading-2">{useCase.targetMarket}</p>
+          </div>
+        </div>
+
+        <div class="mt-8 space-y-5">
+          <div>
+            <h3 class="text-xl font-semibold text-heading-1">The Challenge</h3>
+            <Paragraph className="mt-3">
+              {useCase.challenge}
+            </Paragraph>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-semibold text-heading-1">What We Delivered</h3>
+            <ul class="mt-4 space-y-3 text-heading-3">
+              {useCase.deliverables.map((item) => <li class="flex gap-3">
+                <span aria-hidden="true" class="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 font-bold text-primary">&checkmark;</span>
+                <span>{item}</span>
+              </li>)}
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <aside class="relative overflow-hidden rounded-3xl border border-box-border bg-box-bg p-5 shadow-lg shadow-box-shadow sm:p-6 lg:p-8">
+        <div class="absolute -right-12 -top-12 h-36 w-36 rounded-full bg-primary/10"></div>
+        <div class="absolute -bottom-16 -left-16 h-44 w-44 rounded-full bg-green-400/10"></div>
+        <div class="relative flex h-full flex-col justify-between gap-10">
+          <div>
+            <p class="text-sm font-semibold uppercase text-primary">Outcome</p>
+            <h3 class="mt-3 text-2xl font-semibold text-heading-1">
+              {useCase.outcomeTitle}
+            </h3>
+            <Paragraph className="mt-4">
+              {useCase.outcomeDescription}
+            </Paragraph>
+          </div>
+
+          <div class="rounded-2xl border border-box-border bg-body p-5">
+            <p class="text-sm font-semibold text-primary">Why it worked</p>
+            <p class="mt-3 text-heading-3">
+              {useCase.whyItWorked}
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+    </div>)}
+    {useCases.length === 0 && <p class="text-heading-3">More client stories are coming soon.</p>}
+  </Container>
+</section>
