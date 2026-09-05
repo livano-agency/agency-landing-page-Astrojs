@@ -48,4 +48,4 @@ for (const source of [...seed.posts, ...seed.useCases] as SeedDocument[]) {
   const created = await client.create(document);
   console.log(`Imported: ${source.title} (${created._id})`);
 }
-console.log(write ? 'Import complete. Run content:validate, then build the website in Sanity mode.' : 'Dry run complete. Run content:import to upload images and create the missing documents.');
+console.log(write ? 'Import complete. Run categories:migrate and content:validate, then build the website in Sanity mode.' : 'Dry run complete. Run content:import to upload images and create the missing documents.');

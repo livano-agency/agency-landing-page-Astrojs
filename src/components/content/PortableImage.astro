@@ -1,4 +1,5 @@
 ---
+import CmsImage from './CmsImage.astro';
 import { imageUrl } from '../../lib/sanity/image';
 import type { BlogPost } from '../../lib/sanity/content.server';
 type BodyImage = Extract<NonNullable<BlogPost['body']>[number], { _type: 'contentImage' }>;
@@ -6,6 +7,6 @@ interface Props { node: BodyImage }
 const { node } = Astro.props;
 ---
 {node.asset && <figure>
-  <img src={imageUrl(node, 1200)} alt={node.alt || ''} loading="lazy" decoding="async" />
+  {node.displayStyle ? <CmsImage image={node} alt={node.alt || ''} displayStyle={node.displayStyle} className="rounded-xl" /> : <img src={imageUrl(node, 1200)} alt={node.alt || ''} loading="lazy" decoding="async" />}
   {node.caption && <figcaption>{node.caption}</figcaption>}
 </figure>}

@@ -35,6 +35,7 @@ export async function getBlogPosts(): Promise<RenderablePost[]> {
       slug: post.slug.current,
       coverImage: null,
       localCoverAlt: post.coverImage.alt,
+      author: null,
       body: post.body as BlogPost['body'],
     }));
   }
@@ -55,7 +56,7 @@ export async function getHomeUseCases(): Promise<UseCase[]> {
     const { default: seed } = await import('../../../content/seed.json');
     return seed.useCases.filter((item) => item.showOnHomepage)
       .sort((a, b) => a.displayOrder - b.displayOrder)
-      .map((item) => ({ ...item, _id: item.migrationSource }));
+      .map((item) => ({ ...item, _id: item.migrationSource, category: item.industry }));
   }
   return client.fetch(HOME_USE_CASES_QUERY);
 }

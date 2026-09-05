@@ -2,12 +2,13 @@ import { defineArrayMember, defineField, defineType } from 'sanity';
 import { DocumentIcon } from '@sanity/icons/Document';
 
 export const useCase = defineType({
-  name: 'useCase', title: 'Use case', type: 'document', icon: DocumentIcon,
+  name: 'useCase', title: 'Case study', type: 'document', icon: DocumentIcon,
   fields: [
     defineField({ name: 'title', type: 'string', validation: (rule) => rule.required() }),
     defineField({ name: 'introduction', type: 'text', rows: 3, validation: (rule) => rule.required() }),
     defineField({ name: 'brandOrigin', title: 'Brand origin', type: 'string', validation: (rule) => rule.required() }),
     defineField({ name: 'industry', type: 'string', validation: (rule) => rule.required() }),
+    defineField({ name: 'categoryRef', title: 'Category', type: 'reference', to: [{ type: 'category' }], description: 'Categories are shared with blog posts.' }),
     defineField({ name: 'targetMarket', title: 'Target market', type: 'string', validation: (rule) => rule.required() }),
     defineField({ name: 'challenge', type: 'text', rows: 4, validation: (rule) => rule.required() }),
     defineField({ name: 'deliverables', title: 'What we delivered', type: 'array', of: [defineArrayMember({ type: 'string', validation: (rule) => rule.required() })], validation: (rule) => rule.required().min(1) }),

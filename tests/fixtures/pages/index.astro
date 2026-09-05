@@ -1,0 +1,15 @@
+---
+import CmsImage from '../../../src/components/content/CmsImage.astro';
+import AuthorCard from '../../../src/components/content/AuthorCard.astro';
+import PortableImage from '../../../src/components/content/PortableImage.astro';
+const image = { _type: 'contentImage' as const, asset: { _type: 'reference' as const, _ref: 'image-0123456789012345678901234567890123456789-1600x900-png' }, alt: 'Comparison chart' };
+const author = { _id: 'test-author', name: 'Test Author', slug: null, role: 'Editor', profileImage: null, shortBio: 'Writes useful guides.', ctaButtonText: 'Book a call', ctaUrl: '/#calendly-section' };
+---
+<html lang="en"><head><title>CMS component checks</title></head><body>
+  {['cover', 'contain-padded', 'contain'].map(displayStyle => <section id={displayStyle}><CmsImage image={image} alt={image.alt} displayStyle={displayStyle} /></section>)}
+  <section id="default"><CmsImage image={image} alt={image.alt} /></section>
+  <section id="legacy-inline"><PortableImage node={{ ...image, _key: 'legacy' }} /></section>
+  <section id="author"><AuthorCard author={author} /></section>
+  <section id="no-author"><AuthorCard author={null} /></section>
+  <section id="unsafe-cta"><AuthorCard author={{ ...author, ctaUrl: 'javascript:alert(1)' }} /></section>
+</body></html>

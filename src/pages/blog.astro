@@ -5,7 +5,7 @@ import Title from "../components/shared/Title.astro";
 import Paragraph from "../components/shared/Paragraph.astro";
 import { getBlogPosts } from '../lib/sanity/content.server';
 import { formatDate, readingTime } from '../lib/sanity/content-utils';
-import { imageUrl } from '../lib/sanity/image';
+import CmsImage from '../components/content/CmsImage.astro';
 const posts = await getBlogPosts();
 ---
 
@@ -22,15 +22,16 @@ const posts = await getBlogPosts();
           {posts.map((post) => (
             <div class="bg-box-bg border border-box-border rounded-xl overflow-hidden shadow-md hover:shadow-xl transition">
               <a href={`/blog/${post.slug}`}>
-                {(post.coverImage?.asset || post.localCoverImage) && <img src={post.localCoverImage || imageUrl(post.coverImage!, 1000, 500)} alt={post.coverImage?.alt || post.localCoverAlt || post.title} width="1000" height="500" loading="lazy" decoding="async" class="w-full h-56 object-cover" />}
+                <CmsImage image={post.coverImage} src={post.localCoverImage} alt={post.coverImage?.alt || post.localCoverAlt || post.title} displayStyle={post.coverImage?.displayStyle} width={1000} height={500} className="h-56" />
               </a>
               <div class="p-6 space-y-3">
                 <a href={`/blog/${post.slug}`}>
                   <h3 class="text-2xl font-bold text-heading-1 hover:underline">{post.title}</h3>
                 </a>
                 <div class="text-sm text-heading-3 flex flex-wrap gap-2">
-                  <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time><span>•</span><span>{readingTime(post.body)}</span><span>•</span><span>{post.category}</span>
+                  <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time><span>•</span><span>{readingTime(post.body)}</span>{post.category && <><span>•</span><span>{post.category}</span></>}
                 </div>
+                {post.author?.name && <p class="text-sm text-heading-3">By {post.author.name}</p>}
                 <p class="text-sm text-heading-3">{post.description}</p>
                 <a href={`/blog/${post.slug}`} class="text-primary font-medium text-sm hover:underline inline-block mt-2">
                   Read more →
@@ -43,4 +44,3 @@ const posts = await getBlogPosts();
       </Container>
     </section>
   </Layout>
-

@@ -30,6 +30,7 @@ export type ContentImage = {
   crop?: SanityImageCrop;
   alt: string;
   caption?: string;
+  displayStyle?: "cover" | "contain-padded" | "contain";
 };
 
 export type BlockContent = Array<
@@ -57,6 +58,13 @@ export type BlockContent = Array<
     } & ContentImage)
 >;
 
+export type CategoryReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "category";
+};
+
 export type UseCase = {
   _id: string;
   _type: "useCase";
@@ -67,6 +75,7 @@ export type UseCase = {
   introduction: string;
   brandOrigin: string;
   industry: string;
+  categoryRef?: CategoryReference;
   targetMarket: string;
   challenge: string;
   deliverables: Array<string>;
@@ -76,6 +85,13 @@ export type UseCase = {
   showOnHomepage?: boolean;
   displayOrder: number;
   migrationSource?: string;
+};
+
+export type AuthorReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "author";
 };
 
 export type BlogPost = {
@@ -88,7 +104,9 @@ export type BlogPost = {
   slug: Slug;
   description: string;
   publishedAt: string;
-  category: string;
+  author?: AuthorReference;
+  categoryRef?: CategoryReference;
+  category?: string;
   coverImage: ContentImage;
   body: BlockContent;
   seoTitle?: string;
@@ -112,10 +130,43 @@ export type SanityImageHotspot = {
   width: number;
 };
 
+export type Category = {
+  _id: string;
+  _type: "category";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  slug: Slug;
+  description?: string;
+};
+
 export type Slug = {
   _type: "slug";
   current: string;
   source?: string;
+};
+
+export type Author = {
+  _id: string;
+  _type: "author";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  role?: string;
+  profileImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  shortBio?: string;
+  ctaButtonText?: string;
+  ctaUrl?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -219,11 +270,15 @@ export type AllSanitySchemaTypes =
   | SanityImageAssetReference
   | ContentImage
   | BlockContent
+  | CategoryReference
   | UseCase
+  | AuthorReference
   | BlogPost
   | SanityImageCrop
   | SanityImageHotspot
+  | Category
   | Slug
+  | Author
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -235,14 +290,31 @@ export type AllSanitySchemaTypes =
 
 // Source: ../src/lib/sanity/queries.ts
 // Variable: BLOG_POSTS_QUERY
-// Query: *[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc, _id asc) {    _id, title, "slug": slug.current, description, publishedAt, category,    coverImage, body, seoTitle, seoDescription  }
+// Query: *[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc, _id asc) {    _id, title, "slug": slug.current, description, publishedAt,    "category": select(defined(categoryRef) => categoryRef->title, category),    author->{_id, name, slug, role, profileImage, shortBio, ctaButtonText, ctaUrl},    coverImage, body, seoTitle, seoDescription  }
 export type BLOG_POSTS_QUERY_RESULT = Array<{
   _id: string;
   title: string;
   slug: string;
   description: string;
   publishedAt: string;
-  category: string;
+  category: string | null;
+  author: {
+    _id: string;
+    name: string;
+    slug: Slug;
+    role: string | null;
+    profileImage: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      _type: "image";
+    } | null;
+    shortBio: string | null;
+    ctaButtonText: string | null;
+    ctaUrl: string | null;
+  } | null;
   coverImage: ContentImage;
   body: BlockContent;
   seoTitle: string | null;
@@ -251,7 +323,7 @@ export type BLOG_POSTS_QUERY_RESULT = Array<{
 
 // Source: ../src/lib/sanity/queries.ts
 // Variable: HOME_USE_CASES_QUERY
-// Query: *[_type == "useCase" && showOnHomepage == true] | order(displayOrder asc, _id asc) {    _id, title, introduction, brandOrigin, industry, targetMarket, challenge,    deliverables, outcomeTitle, outcomeDescription, whyItWorked  }
+// Query: *[_type == "useCase" && showOnHomepage == true] | order(displayOrder asc, _id asc) {    _id, title, introduction, brandOrigin, industry, targetMarket, challenge,    "category": select(defined(categoryRef) => categoryRef->title, industry),    deliverables, outcomeTitle, outcomeDescription, whyItWorked  }
 export type HOME_USE_CASES_QUERY_RESULT = Array<{
   _id: string;
   title: string;
@@ -260,6 +332,7 @@ export type HOME_USE_CASES_QUERY_RESULT = Array<{
   industry: string;
   targetMarket: string;
   challenge: string;
+  category: string;
   deliverables: Array<string>;
   outcomeTitle: string;
   outcomeDescription: string;
@@ -269,8 +342,8 @@ export type HOME_USE_CASES_QUERY_RESULT = Array<{
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc, _id asc) {\n    _id, title, "slug": slug.current, description, publishedAt, category,\n    coverImage, body, seoTitle, seoDescription\n  }\n': BLOG_POSTS_QUERY_RESULT;
-    '\n  *[_type == "useCase" && showOnHomepage == true] | order(displayOrder asc, _id asc) {\n    _id, title, introduction, brandOrigin, industry, targetMarket, challenge,\n    deliverables, outcomeTitle, outcomeDescription, whyItWorked\n  }\n': HOME_USE_CASES_QUERY_RESULT;
+    '\n  *[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc, _id asc) {\n    _id, title, "slug": slug.current, description, publishedAt,\n    "category": select(defined(categoryRef) => categoryRef->title, category),\n    author->{_id, name, slug, role, profileImage, shortBio, ctaButtonText, ctaUrl},\n    coverImage, body, seoTitle, seoDescription\n  }\n': BLOG_POSTS_QUERY_RESULT;
+    '\n  *[_type == "useCase" && showOnHomepage == true] | order(displayOrder asc, _id asc) {\n    _id, title, introduction, brandOrigin, industry, targetMarket, challenge,\n    "category": select(defined(categoryRef) => categoryRef->title, industry),\n    deliverables, outcomeTitle, outcomeDescription, whyItWorked\n  }\n': HOME_USE_CASES_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

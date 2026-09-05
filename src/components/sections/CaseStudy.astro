@@ -28,7 +28,7 @@ const useCases = await getHomeUseCases();
           </div>
           <div class="rounded-2xl border border-box-border bg-body p-4">
             <p class="text-sm font-semibold text-primary">Category</p>
-            <p class="mt-2 text-lg font-semibold text-heading-2">{useCase.industry}</p>
+            <p class="mt-2 text-lg font-semibold text-heading-2">{useCase.category || '—'}</p>
           </div>
           <div class="rounded-2xl border border-box-border bg-body p-4">
             <p class="text-sm font-semibold text-primary">Target Market</p>

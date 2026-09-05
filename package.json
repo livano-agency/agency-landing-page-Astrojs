@@ -16,6 +16,7 @@
     "studio:build": "npm --prefix studio run build",
     "sanity:typegen": "npm --prefix studio run typegen",
     "test": "node --experimental-strip-types --test tests/content.test.ts",
+    "test:components": "node --experimental-strip-types --test tests/components.test.ts",
     "test:built": "node --experimental-strip-types --test tests/built-content.test.ts",
     "test:published": "SANITY_CONTENT_SOURCE=sanity node --experimental-strip-types --test tests/built-content.test.ts"
   },

@@ -29,6 +29,27 @@ test('use case query honors visibility, manual order and empty content', async (
   }
 });
 
+test('shared category references and blog authors resolve without exposing legacy labels', async () => {
+  const category = { _id: 'category-1', _type: 'category', title: 'Renamed category' };
+  const author = { _id: 'author-1', _type: 'author', name: 'Test Author', role: 'Editor', shortBio: 'A short biography', ctaButtonText: 'Book a call', ctaUrl: '/#calendly-section' };
+  const post = { ...seed.posts[0], _id: 'post-1', categoryRef: { _type: 'reference', _ref: category._id }, author: { _type: 'reference', _ref: author._id } };
+  const useCase = { ...seed.useCases[0], _id: 'case-1', categoryRef: post.categoryRef };
+  const dataset = [category, author, post, useCase];
+  const query = async (source, data = dataset) => (await evaluate(parse(source), { dataset: data })).get();
+  const [result] = await query(BLOG_POSTS_QUERY);
+  assert.equal(result.category, category.title);
+  assert.equal(result.author.name, author.name);
+  assert.equal(result.author.ctaUrl, author.ctaUrl);
+  const [caseResult] = await query(HOME_USE_CASES_QUERY);
+  assert.equal(caseResult.category, category.title);
+  assert.equal('author' in caseResult, false);
+  const [missingReferences] = await query(BLOG_POSTS_QUERY, [post]);
+  assert.equal(missingReferences.category, null);
+  assert.equal(missingReferences.author, null);
+  const [legacy] = await query(BLOG_POSTS_QUERY, [{ ...post, categoryRef: undefined, author: undefined }]);
+  assert.equal(legacy.category, post.category);
+});
+
 test('rich-text links permit useful URLs and reject executable or disguised URLs', () => {
   for (const href of ['/#calendly-section', '#faq', '/blog', 'https://example.com/path', 'mailto:hello@example.com', 'tel:+123456789']) {
     assert.equal(safeHref(href), href);

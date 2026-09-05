@@ -14,7 +14,9 @@
     "typegen": "sanity schemas extract --force --enforce-required-fields && sanity typegen generate",
     "content:check": "sanity exec scripts/import-content.ts --with-user-token",
     "content:import": "sanity exec scripts/import-content.ts --with-user-token -- --write",
-    "content:validate": "sanity documents validate"
+    "content:validate": "sanity documents validate",
+    "categories:check": "sanity exec scripts/migrate-categories.ts --with-user-token",
+    "categories:migrate": "sanity exec scripts/migrate-categories.ts --with-user-token -- --write"
   },
   "dependencies": {
     "@sanity/client": "^8.5.0",

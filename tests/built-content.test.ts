@@ -36,9 +36,11 @@ test('both original article URLs render all migrated text and correct metadata',
 test('blog cards match their article titles, categories and reading times', () => {
   const document = page('blog/index.html');
   const headings = [...document.querySelectorAll('#blog h3')];
-  assert.deepEqual(headings.map(node => node.textContent), seed.posts.map(post => post.title));
-  seed.posts.forEach((post, index) => {
-    const card = headings[index].closest('div.bg-box-bg');
+  if (!sanityMode) assert.deepEqual(headings.map(node => node.textContent), seed.posts.map(post => post.title));
+  seed.posts.forEach((post) => {
+    const heading = headings.find(node => node.closest('a')?.getAttribute('href') === `/blog/${post.slug.current}`);
+    assert.equal(heading?.textContent, post.title);
+    const card = heading?.closest('div.bg-box-bg');
     assert.ok(card?.textContent?.includes(post.category));
     assert.ok(card?.textContent?.includes(readingTime(post.body)));
     const image = card?.querySelector('img');

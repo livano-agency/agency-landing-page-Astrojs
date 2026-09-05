@@ -2,7 +2,7 @@
 
 The Astro website stays at the repository root. `studio/` is an independent Sanity Studio connected to **LaunchLegit**, project **lwe89m68**, dataset **production**, organization **of2GOtAoL**. Only blog posts and homepage use cases are managed in Sanity.
 
-The editor is deployed at **https://launchlegit-lwe89m68.sanity.studio/**. The two existing blog posts and French wellness case study have been imported and published. The local website now reads Sanity content. Automatic production website rebuilds still require the hosting provider's build hook.
+The editor is deployed at **https://launchlegit-lwe89m68.sanity.studio/**. The original two blog posts and French wellness case study have been imported and published. The website reads Sanity content. The project's active `cloudflare` webhook triggers production rebuilds for published blog, case study, author and category changes.
 
 ## Local development
 
@@ -65,6 +65,8 @@ npm --prefix studio run login
 npm --prefix studio run schema:deploy
 npm --prefix studio run content:check
 npm --prefix studio run content:import
+npm --prefix studio run categories:check
+npm --prefix studio run categories:migrate
 npm --prefix studio run content:validate
 ```
 
@@ -76,9 +78,15 @@ Check the imported content in Studio, change `SANITY_CONTENT_SOURCE` to `sanity`
 
 ## Editor workflow
 
-**Blog Posts:** Create a post, fill in the title, URL slug, summary, category, publication date, cover image and alt text, and article body. Search/sharing fields are optional and default to the title and summary. The body supports paragraphs, headings, subheadings, quotes, lists, bold, italic, links and captioned images. Keep a published slug unchanged to preserve inbound links; a slug change requires a hosting redirect from the old URL. The publication date controls display and sorting, not scheduled publishing.
+**Blog → Blog Posts:** Create a post, fill in the title, URL slug, summary, category, publication date, cover image and alt text, and article body. Select an optional author to show a byline on the listing and article, plus an author card beneath the article. Search/sharing fields are optional and default to the title and summary. The body supports paragraphs, headings, subheadings, quotes, lists, bold, italic, links and captioned images. Keep a published slug unchanged to preserve inbound links; a slug change requires a hosting redirect from the old URL. The publication date controls display and sorting, not scheduled publishing.
 
-**Use Cases:** Fill in the brand origin, industry, target market, challenge, deliverables and outcome. Enable **Show on homepage** and use **Display order** to arrange multiple cases (lower numbers first). Cases use the existing homepage layout; this phase does not add separate case detail URLs.
+**Case Studies → Case Studies:** Fill in the category, brand origin, industry, target market, challenge, deliverables and outcome. Enable **Show on homepage** and use **Display order** to arrange multiple cases (lower numbers first). Cases have no author field and use the existing homepage layout; this phase does not add separate case detail URLs.
+
+**Categories:** Both menus open the same shared category records. Each has a title, slug and optional description. Create and publish a category, then select it in a blog or case study. Changing its title updates every reference on the next website build. Existing blog category labels and case study industries are converted by `categories:migrate`; its dry run is `categories:check`. The migration preserves original fields and draft states, skips existing references and uses revision checks to avoid overwriting concurrent edits. Run only one migration at a time. Category slugs are metadata; category archive pages are not part of this setup.
+
+**Blog → Authors:** Create the name, slug, role/title, profile image and alternative text, short bio, CTA button text and CTA URL. Publish the author before publishing a post that references them. Authors are optional and existing posts are not automatically attributed. `studio/scripts/create-author.ts` is an optional, rerunnable setup script for the Rabii Babou profile supplied for this project; it defaults to a dry run and requires `--write` through `sanity exec --with-user-token` to create it.
+
+**Image display style:** Featured and body images support **Cover (default)**, **Contain with padding**, and **Contain**. Cover fills the frame and can crop edges. Contain shows the image within the frame without additional display cropping; the padded option adds space around it. Use Sanity's crop/hotspot controls to choose the image area. Featured images appear on blog cards and article pages. Existing inline images without a saved display style retain their natural proportions until an option is chosen.
 
 Saving edits creates a draft. Use **Publish** to make changes available to the website's next build. Unpublishing or deleting content removes it on the next successful website deployment. Local mode does not display Studio changes.
 
@@ -103,12 +111,14 @@ In the Sanity project's API → Webhooks settings, create:
 | Dataset | `production` |
 | Method | `POST` |
 | Triggers | Create, Update, Delete |
-| Filter | `_type in ["blogPost", "useCase"]` |
+| Filter | `_type in ["blogPost", "useCase", "author", "category"]` |
 | Projection | `{ "documentId": _id, "documentType": _type }` |
 | Draft events | Disabled |
 | Version events | Disabled |
 
 Keep the build-hook URL private. Standard hosting deploy hooks accept this POST directly; if the chosen host requires a different authentication or payload format, configure that provider's supported trigger instead. A custom receiver must verify Sanity's webhook signature. No custom receiver is needed for a host-managed build hook.
+
+If a hook was already configured for blogs and use cases, extend its filter to include `author` and `category` so edits to shared records also rebuild the website.
 
 Test one publish and one unpublish after the hook is connected. Confirm a successful delivery in Sanity's webhook logs, a successful website build, and the expected change on the public site. Changes appear after the build/deployment completes. Sanity documents deletion/unpublishing events and draft exclusions in its [webhook guide](https://www.sanity.io/docs/content-lake/webhooks); the [Astro rendering guide](https://www.sanity.io/docs/astro/static-and-server-rendering) describes the static-build workflow.
 
@@ -119,6 +129,7 @@ npm run sanity:typegen
 npm run check
 npm --prefix studio run check
 npm test
+npm run test:components
 npm run build:local
 npm run test:built
 npm run studio:build

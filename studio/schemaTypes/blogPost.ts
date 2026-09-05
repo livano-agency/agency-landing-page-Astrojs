@@ -14,7 +14,9 @@ export const blogPost = defineType({
     }),
     defineField({ name: 'description', title: 'Summary', type: 'text', rows: 3, group: 'content', validation: (rule) => rule.required() }),
     defineField({ name: 'publishedAt', title: 'Publication date', type: 'datetime', group: 'content', initialValue: () => new Date().toISOString(), description: 'Displayed date and sort order. Use Publish to make the article public; this field does not schedule publication.', validation: (rule) => rule.required() }),
-    defineField({ name: 'category', type: 'string', group: 'content', validation: (rule) => rule.required() }),
+    defineField({ name: 'author', type: 'reference', to: [{ type: 'author' }], group: 'content', description: 'Select or create the author of this post.' }),
+    defineField({ name: 'categoryRef', title: 'Category', type: 'reference', to: [{ type: 'category' }], group: 'content' }),
+    defineField({ name: 'category', title: 'Legacy category', type: 'string', group: 'content', readOnly: true, hidden: ({ document, value }) => !!document?.categoryRef || !value, deprecated: { reason: 'Use the Category reference. The original label is retained for migration compatibility.' } }),
     defineField({ name: 'coverImage', title: 'Cover image', type: 'contentImage', group: 'content', validation: (rule) => rule.required() }),
     defineField({ name: 'body', type: 'blockContent', group: 'content', validation: (rule) => rule.required().min(1) }),
     defineField({ name: 'seoTitle', title: 'SEO title', type: 'string', group: 'seo', description: 'Optional. Defaults to the article title.', validation: (rule) => rule.max(70).warning('Shorter titles work better in search results.') }),
@@ -22,5 +24,5 @@ export const blogPost = defineType({
     defineField({ name: 'migrationSource', type: 'string', hidden: true, readOnly: true }),
   ],
   orderings: [{ title: 'Newest first', name: 'publishedAtDesc', by: [{ field: 'publishedAt', direction: 'desc' }] }],
-  preview: { select: { title: 'title', subtitle: 'category', media: 'coverImage' } },
+  preview: { select: { title: 'title', subtitle: 'categoryRef.title', media: 'coverImage' } },
 });

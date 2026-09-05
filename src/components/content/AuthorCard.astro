@@ -1,0 +1,19 @@
+---
+import type { BlogPost } from '../../lib/sanity/content.server';
+import { imageUrl } from '../../lib/sanity/image';
+import { safeHref } from '../../lib/sanity/content-utils';
+interface Props { author: BlogPost['author'] }
+const { author } = Astro.props;
+const ctaUrl = safeHref(author?.ctaUrl);
+---
+{author?.name && <aside aria-label="About the author" class="mt-12 rounded-2xl border border-box-border bg-box-bg p-6 sm:p-8">
+  <div class="flex flex-col sm:flex-row gap-5 items-start">
+    {author.profileImage?.asset && <img src={imageUrl(author.profileImage, 96, 96)} alt={author.profileImage.alt || author.name} width="96" height="96" loading="lazy" class="w-24 h-24 rounded-full object-cover shrink-0" />}
+    <div class="space-y-3">
+      <h2 class="text-xl font-semibold text-heading-1">About {author.name}</h2>
+      {author.role && <p class="text-sm font-medium text-heading-3">{author.role}</p>}
+      {author.shortBio && <p class="text-heading-3 leading-relaxed">{author.shortBio}</p>}
+      {ctaUrl && author.ctaButtonText && <a href={ctaUrl} class="inline-block rounded-full bg-primary px-5 py-3 font-medium text-white hover:opacity-90">{author.ctaButtonText}</a>}
+    </div>
+  </div>
+</aside>}
