@@ -19,6 +19,26 @@ await build({
 });
 const document = new JSDOM(await readFile(join(output, 'index.html'), 'utf8')).window.document;
 
+test('body links apply nofollow independently of new-tab protection and preserve existing links', () => {
+  const body = document.querySelector('#body-links');
+  const links = [...body.querySelectorAll('a')];
+  assert.equal(links.length, 5);
+  const link = (name: string) => links.find(item => item.textContent === name)!;
+  assert.equal(link('legacy').getAttribute('href'), '/blog');
+  for (const name of ['legacy', 'follow']) {
+    assert.equal(link(name).getAttribute('rel'), null);
+    assert.equal(link(name).getAttribute('target'), null);
+  }
+  assert.equal(link('nofollow').getAttribute('rel'), 'nofollow');
+  assert.equal(link('nofollow').getAttribute('target'), null);
+  assert.equal(link('new-tab').getAttribute('rel'), 'noopener noreferrer');
+  assert.equal(link('new-tab').getAttribute('target'), '_blank');
+  assert.equal(link('nofollow-new-tab').getAttribute('rel'), 'noopener noreferrer nofollow');
+  assert.equal(link('nofollow-new-tab').getAttribute('target'), '_blank');
+  assert.ok(body.textContent?.includes('unsafe'));
+  assert.equal(links.some(item => item.textContent === 'unsafe'), false);
+});
+
 test('all image display modes control both cropping and rendered image fit', () => {
   for (const mode of ['cover', 'contain-padded', 'contain', 'default']) {
     const frame = document.querySelector(`#${mode} .cms-image`);

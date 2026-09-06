@@ -2,8 +2,22 @@
 import CmsImage from '../../../src/components/content/CmsImage.astro';
 import AuthorCard from '../../../src/components/content/AuthorCard.astro';
 import PortableImage from '../../../src/components/content/PortableImage.astro';
+import ArticleBody from '../../../src/components/content/ArticleBody.astro';
 const image = { _type: 'contentImage' as const, asset: { _type: 'reference' as const, _ref: 'image-0123456789012345678901234567890123456789-1600x900-png' }, alt: 'Comparison chart' };
 const author = { _id: 'test-author', name: 'Test Author', slug: null, role: 'Editor', profileImage: null, shortBio: 'Writes useful guides.', ctaButtonText: 'Book a call', ctaUrl: '/#calendly-section' };
+const links = [
+  { _key: 'legacy', href: '/blog' },
+  { _key: 'follow', href: 'https://example.com/follow', nofollow: false },
+  { _key: 'nofollow', href: 'https://example.com/nofollow', nofollow: true },
+  { _key: 'new-tab', href: 'https://example.com/new-tab', openInNewTab: true },
+  { _key: 'nofollow-new-tab', href: 'https://example.com/nofollow-new-tab', nofollow: true, openInNewTab: true },
+  { _key: 'unsafe', href: 'javascript:alert(1)', nofollow: true, openInNewTab: true },
+];
+const linkBody = links.map(link => ({
+  _type: 'block' as const, _key: link._key, style: 'normal' as const,
+  markDefs: [{ ...link, _type: 'link' as const }],
+  children: [{ _type: 'span' as const, _key: `${link._key}-text`, text: link._key, marks: [link._key] }],
+}));
 ---
 <html lang="en"><head><title>CMS component checks</title></head><body>
   {['cover', 'contain-padded', 'contain'].map(displayStyle => <section id={displayStyle}><CmsImage image={image} alt={image.alt} displayStyle={displayStyle} /></section>)}
@@ -12,4 +26,5 @@ const author = { _id: 'test-author', name: 'Test Author', slug: null, role: 'Edi
   <section id="author"><AuthorCard author={author} /></section>
   <section id="no-author"><AuthorCard author={null} /></section>
   <section id="unsafe-cta"><AuthorCard author={{ ...author, ctaUrl: 'javascript:alert(1)' }} /></section>
+  <section id="body-links"><ArticleBody value={linkBody} /></section>
 </body></html>

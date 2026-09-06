@@ -88,6 +88,8 @@ Check the imported content in Studio, change `SANITY_CONTENT_SOURCE` to `sanity`
 
 **Image display style:** Featured and body images support **Cover (default)**, **Contain with padding**, and **Contain**. Cover fills the frame and can crop edges. Contain shows the image within the frame without additional display cropping; the padded option adds space around it. Use Sanity's crop/hotspot controls to choose the image area. Featured images appear on blog cards and article pages. Existing inline images without a saved display style retain their natural proportions until an option is chosen.
 
+**Body links:** Select linked text and edit its link settings to toggle **Nofollow**. Off (the default) keeps a normal link; on adds `rel="nofollow"`. **Open in a new tab** works independently and retains `noopener noreferrer`. Existing links keep their current behavior until edited. Publish the post to apply the change on the next Cloudflare build.
+
 Saving edits creates a draft. Use **Publish** to make changes available to the website's next build. Unpublishing or deleting content removes it on the next successful website deployment. Local mode does not display Studio changes.
 
 ## Studio deployment and CORS

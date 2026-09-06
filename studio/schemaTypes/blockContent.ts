@@ -21,6 +21,7 @@ export const blockContent = defineType({
             fields: [
               defineField({ name: 'href', title: 'URL', type: 'url', validation: (rule) => rule.required().uri({ allowRelative: true, scheme: ['http', 'https', 'mailto', 'tel'] }) }),
               defineField({ name: 'openInNewTab', title: 'Open in a new tab', type: 'boolean', initialValue: false }),
+              defineField({ name: 'nofollow', title: 'Nofollow', type: 'boolean', initialValue: false, description: 'Turn on to mark this link as nofollow for search engines. Leave off for a normal (dofollow) link.' }),
             ],
           }),
         ],

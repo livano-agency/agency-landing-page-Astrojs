@@ -1,8 +1,12 @@
 ---
 import type { MarkProps } from 'astro-portabletext/types';
 import { safeHref } from '../../lib/sanity/content-utils';
-type Props = MarkProps<{ href?: string; openInNewTab?: boolean }>;
+type Props = MarkProps<{ href?: string; openInNewTab?: boolean; nofollow?: boolean }>;
 const { node } = Astro.props;
 const href = safeHref(node.markDef?.href);
+const rel = [
+  node.markDef?.openInNewTab ? 'noopener noreferrer' : '',
+  node.markDef?.nofollow === true ? 'nofollow' : '',
+].filter(Boolean).join(' ') || undefined;
 ---
-{href ? <a href={href} target={node.markDef?.openInNewTab ? '_blank' : undefined} rel={node.markDef?.openInNewTab ? 'noopener noreferrer' : undefined}><slot /></a> : <slot />}
+{href ? <a href={href} target={node.markDef?.openInNewTab ? '_blank' : undefined} rel={rel}><slot /></a> : <slot />}

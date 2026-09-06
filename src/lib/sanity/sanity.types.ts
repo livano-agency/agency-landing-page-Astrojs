@@ -46,6 +46,7 @@ export type BlockContent = Array<
       markDefs?: Array<{
         href: string;
         openInNewTab?: boolean;
+        nofollow?: boolean;
         _type: "link";
         _key: string;
       }>;
