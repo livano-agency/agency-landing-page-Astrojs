@@ -2,7 +2,7 @@
 
 The Astro website stays at the repository root. `studio/` is an independent Sanity Studio connected to **LaunchLegit**, project **lwe89m68**, dataset **production**, organization **of2GOtAoL**. Blog posts and case studies are managed in Sanity.
 
-The editor is deployed at **https://launchlegit-lwe89m68.sanity.studio/**. The original two blog posts and French wellness case study have been imported and published. The website reads Sanity content. The project's active `cloudflare` webhook triggers production rebuilds for published blog, case study, author and category changes.
+The editor is deployed at **https://launchlegit-lwe89m68.sanity.studio/**. The original two blog posts have been imported and published. The website reads Sanity content. The project's active `cloudflare` webhook triggers production rebuilds for published blog, case study, author and category changes.
 
 ## Local development
 
@@ -43,7 +43,7 @@ Cancel the old terminal login with Ctrl+C, close the failed login tab, and run `
 | `SANITY_API_READ_TOKEN` | Optional read-only token for a private dataset, kept in build secrets |
 | `PUBLIC_SITE_URL` | Public site origin, used for canonical and social URLs |
 
-The checked-in `.env.example` selects `sanity` to read published content. For migration preview, `local` mode renders `content/seed.json`, including the existing two articles and French wellness case study, and uses the existing local cover images. It never queries Sanity. `npm run dev:local` and `npm run build:local` select this mode explicitly.
+The checked-in `.env.example` selects `sanity` to read published content. For migration preview, `local` mode renders `content/seed.json`, including the existing two blog articles, and uses the existing local cover images. It never queries Sanity. `npm run dev:local` and `npm run build:local` select this mode explicitly.
 
 **After importing, set `SANITY_CONTENT_SOURCE=sanity` in `.env` and the hosting environment.** In Sanity mode, API/authentication failures fail the build. There is no silent fallback to old content: an empty published dataset produces empty sections, and unpublished posts do not get article routes. This prevents removed content from reappearing.
 
@@ -70,7 +70,7 @@ npm --prefix studio run categories:migrate
 npm --prefix studio run content:validate
 ```
 
-`content:check` is a dry run. `content:import` uploads the existing cover images and creates the three missing documents as published content, since they were already public on the website. It lets Sanity generate document IDs. It checks `migrationSource` and blog slugs across both drafts and published documents before writing, so sequential reruns skip existing content and never overwrite an editor's changes. Run only one importer at a time.
+`content:check` is a dry run. `content:import` uploads the existing cover images and creates missing blog documents as published content, since they were already public on the website. It lets Sanity generate document IDs. It checks `migrationSource` and blog slugs across both drafts and published documents before writing, so sequential reruns skip existing content and never overwrite an editor's changes. Run only one importer at a time.
 
 The migration intentionally targets only `lwe89m68/production`. It does not modify unrelated documents. Do not rerun it to restore content after intentionally deleting all versions of an imported document: the corresponding seed document would be recreated.
 
@@ -80,7 +80,7 @@ Check the imported content in Studio, change `SANITY_CONTENT_SOURCE` to `sanity`
 
 **Blog → Blog Posts:** Create a post, fill in the title, URL slug, summary, category, publication date, cover image and alt text, and article body. Select an optional author to show a byline on the listing and article, plus an author card beneath the article. Search/sharing fields are optional and default to the title and summary. The body supports paragraphs, headings, subheadings, quotes, lists, bold, italic, links and captioned images. Keep a published slug unchanged to preserve inbound links; a slug change requires a hosting redirect from the old URL. The publication date controls display and sorting, not scheduled publishing.
 
-**Case Studies → Case Studies:** Fill in the title, URL slug, introduction, category, brand origin, industry, target market, challenge, deliverables and outcome. Publish to show a card on `/case-studies` and a full page at `/case-studies/{slug}`. Use **Display order** to arrange cards (lower numbers first). Existing published cases without slugs use their stable document IDs as URLs until a slug is set; changing an established URL requires a hosting redirect. The old homepage visibility field is retained but no longer controls publication. Unpublish to remove a case from both the listing and detail routes. Case studies no longer appear on the homepage. Deploy the updated Studio to make the slug editor available.
+**Case Studies → Case Studies:** Uses the same shared article schema as Blog Posts: title, URL slug, summary, publication date, author, category, cover image, rich-text body, and search/sharing fields. Publish to show a card on `/case-studies` and a full article at `/case-studies/{slug}`. Cards sort newest first. Keep published slugs unchanged. The former structured challenge/deliverables/outcome fields have been removed. The original French wellness case study was deleted at the owner's request and removed from the seed to prevent reimporting it.
 
 **Categories:** Both menus open the same shared category records. Each has a title, slug and optional description. Create and publish a category, then select it in a blog or case study. Changing its title updates every reference on the next website build. Existing blog category labels and case study industries are converted by `categories:migrate`; its dry run is `categories:check`. The migration preserves original fields and draft states, skips existing references and uses revision checks to avoid overwriting concurrent edits. Run only one migration at a time. Category slugs are metadata; category archive pages are not part of this setup.
 
@@ -139,6 +139,6 @@ npm run studio:build
 
 Immediately after importing, `npm run build && npm run test:published` also checks the real Sanity-backed output, including CDN image URLs. Those assertions compare against the migration seed; update them when intentionally changing the imported articles in Studio.
 
-TypeGen scans `src/lib/sanity/queries.ts` and writes `src/lib/sanity/sanity.types.ts`; commit the generated types after schema/query changes. The frontend TypeScript config excludes Studio so each application resolves its own dependencies. The built-content tests expect local seed content and check actual rendered HTML, URLs, metadata, lists, the booking link, and case study text.
+TypeGen scans `src/lib/sanity/queries.ts` and writes `src/lib/sanity/sanity.types.ts`; commit the generated types after schema/query changes. The frontend TypeScript config excludes Studio so each application resolves its own dependencies. The built-content tests expect local seed content and check actual rendered HTML, URLs, metadata, lists, the booking link, and the empty case study listing.
 
 Live draft preview, visual editing, site-wide CMS settings are outside this integration.

@@ -15,26 +15,28 @@ test('queries preserve blog URLs and order articles newest first', async () => {
   assert.ok(result.every(post => post.body.length && post.description));
 });
 
-test('case study query uses slugs, preserves legacy cases and orders published content', async () => {
-  const base = { ...seed.useCases[0], slug: undefined };
+test('case studies use the blog article fields, require slugs and sort newest first', async () => {
+  const base = { ...seed.posts[0], _type: 'useCase' };
   const dataset = [
-    { ...base, _id: 'second', displayOrder: 2, slug: { current: 'new-case' } },
-    { ...base, _id: 'formerly-hidden', displayOrder: 1, showOnHomepage: false },
-    { ...base, _id: 'first', displayOrder: 0 },
+    { ...base, _id: 'older', slug: { current: 'older-case' }, publishedAt: '2025-01-01T00:00:00Z' },
+    { ...base, _id: 'newer', slug: { current: 'newer-case' }, publishedAt: '2026-01-01T00:00:00Z' },
+    { ...base, _id: 'incomplete', slug: undefined },
   ];
   const result = await (await evaluate(parse(CASE_STUDIES_QUERY), { dataset })).get();
-  assert.deepEqual(result.map(item => item._id), ['first', 'formerly-hidden', 'second']);
-  assert.deepEqual(result.map(item => item.slug), ['first', 'formerly-hidden', 'new-case']);
-  for (const query of [CASE_STUDIES_QUERY, BLOG_POSTS_QUERY]) {
-    assert.deepEqual(await (await evaluate(parse(query), { dataset: [] })).get(), []);
-  }
+  assert.deepEqual(result.map(item => item.slug), ['newer-case', 'older-case']);
+  assert.deepEqual(result[0].body, base.body);
+  assert.equal(result[0].description, base.description);
+  assert.deepEqual(result[0].coverImage, base.coverImage);
+  const blogs = await (await evaluate(parse(BLOG_POSTS_QUERY), { dataset: dataset.map(item => ({ ...item, _type: 'blogPost' })) })).get();
+  assert.deepEqual(result, blogs);
+  assert.deepEqual(await (await evaluate(parse(CASE_STUDIES_QUERY), { dataset: [] })).get(), []);
 });
 
 test('shared category references and blog authors resolve without exposing legacy labels', async () => {
   const category = { _id: 'category-1', _type: 'category', title: 'Renamed category' };
   const author = { _id: 'author-1', _type: 'author', name: 'Test Author', role: 'Editor', shortBio: 'A short biography', ctaButtonText: 'Book a call', ctaUrl: '/#calendly-section' };
   const post = { ...seed.posts[0], _id: 'post-1', categoryRef: { _type: 'reference', _ref: category._id }, author: { _type: 'reference', _ref: author._id } };
-  const useCase = { ...seed.useCases[0], _id: 'case-1', categoryRef: post.categoryRef };
+  const useCase = { ...post, _type: 'useCase', _id: 'case-1' };
   const dataset = [category, author, post, useCase];
   const query = async (source, data = dataset) => (await evaluate(parse(source), { dataset: data })).get();
   const [result] = await query(BLOG_POSTS_QUERY);
@@ -43,7 +45,7 @@ test('shared category references and blog authors resolve without exposing legac
   assert.equal(result.author.ctaUrl, author.ctaUrl);
   const [caseResult] = await query(CASE_STUDIES_QUERY);
   assert.equal(caseResult.category, category.title);
-  assert.equal('author' in caseResult, false);
+  assert.equal(caseResult.author.name, author.name);
   const [missingReferences] = await query(BLOG_POSTS_QUERY, [post]);
   assert.equal(missingReferences.category, null);
   assert.equal(missingReferences.author, null);

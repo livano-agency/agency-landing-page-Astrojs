@@ -3,7 +3,7 @@ import { BLOG_POSTS_QUERY, CASE_STUDIES_QUERY } from './queries';
 import type { BLOG_POSTS_QUERY_RESULT, CASE_STUDIES_QUERY_RESULT } from './sanity.types';
 
 export type BlogPost = BLOG_POSTS_QUERY_RESULT[number];
-export type UseCase = CASE_STUDIES_QUERY_RESULT[number];
+export type UseCase = CASE_STUDIES_QUERY_RESULT[number] & { localCoverImage?: string; localCoverAlt?: string };
 // Local image paths are only used in the explicit pre-migration local mode.
 export type RenderablePost = Omit<BlogPost, 'coverImage'> & {
   coverImage: BlogPost['coverImage'] | null;
@@ -54,17 +54,13 @@ export async function getBlogPosts(): Promise<RenderablePost[]> {
 export async function getCaseStudies(): Promise<UseCase[]> {
   let cases: UseCase[];
   if (source === 'local') {
-    const { default: seed } = await import('../../../content/seed.json');
-    cases = [...seed.useCases]
-      .sort((a, b) => a.displayOrder - b.displayOrder || a.migrationSource.localeCompare(b.migrationSource))
-      .map((item) => ({ ...item, _id: item.migrationSource, slug: item.slug.current, category: item.industry }));
+    return [];
   } else {
     cases = await client.fetch(CASE_STUDIES_QUERY);
   }
-  // Older published documents use their stable ID until an editor sets a slug.
   const slugs = new Set<string>();
   for (const item of cases) {
-    if (!item.slug || !/^[a-zA-Z0-9_-][a-zA-Z0-9._-]*$/.test(item.slug) || slugs.has(item.slug)) {
+    if (!item.slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.slug) || slugs.has(item.slug)) {
       throw new Error(`Invalid or duplicate case study slug: ${item.slug}`);
     }
     slugs.add(item.slug);

@@ -1115,27 +1115,5 @@
       "seoDescription": null
     }
   ],
-  "useCases": [
-    {
-      "_type": "useCase",
-      "migrationSource": "legacy-case-study/french-wellness",
-      "slug": { "_type": "slug", "current": "french-wellness" },
-      "title": "Helping a French Wellness Brand Prepare for TikTok Shop USA",
-      "introduction": "A French health and wellness brand came to LaunchLegit ready to sell in the U.S. They already had their company and EIN in place, but needed the right operational setup to launch properly.",
-      "brandOrigin": "France",
-      "industry": "Health & Wellness",
-      "targetMarket": "United States",
-      "challenge": "The brand had the legal foundation to operate, but needed a reliable U.S. go-to-market setup for TikTok Shop, including the right tech stack, platform readiness, and representative support.",
-      "deliverables": [
-        "Built an end-to-end tech setup for selling through TikTok Shop USA.",
-        "Provided a U.S. representative from the LaunchLegit founding team.",
-        "Guided the brand through TikTok Shop requirements using our partner agency relationship with TikTok Shop."
-      ],
-      "outcomeTitle": "A compliant U.S. launch foundation for a brand entering a new market.",
-      "outcomeDescription": "LaunchLegit equipped the brand with the infrastructure and representation needed to move from existing company paperwork to an active U.S. TikTok Shop launch path.",
-      "whyItWorked": "The setup combined legal readiness, operational tooling, U.S. representation, and direct TikTok Shop partner agency support.",
-      "showOnHomepage": true,
-      "displayOrder": 0
-    }
-  ]
+  "useCases": []
 }

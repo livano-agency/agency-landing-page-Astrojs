@@ -56,28 +56,17 @@ test('blog cards match their article titles, categories and reading times', () =
   });
 });
 
-test('case studies move from the homepage to a listing and complete detail pages', () => {
+test('case study listing stays available after deleting the original study', () => {
   const home = page('index.html');
   assert.equal(home.querySelector('#case-study'), null);
   assert.ok(home.querySelector('a[href="/case-studies"]'));
   assert.equal(home.querySelector('a[href="/#case-study"]'), null);
   const listing = page('case-studies/index.html');
   assert.equal(listing.querySelector('h1')?.textContent?.trim(), 'Case Studies');
-  for (const useCase of seed.useCases) {
-    const card = [...listing.querySelectorAll('main article')].find(item => item.querySelector('h2')?.textContent?.trim() === useCase.title);
-    assert.ok(card);
-    const href = card.querySelector('a')?.getAttribute('href');
-    assert.ok(href?.startsWith('/case-studies/'));
-    const detail = page(`${href.slice(1)}/index.html`);
-    assert.equal(detail.querySelector('h1')?.textContent, useCase.title);
-    assert.equal(detail.querySelector('meta[name="description"]')?.getAttribute('content'), useCase.introduction);
-    const section = detail.querySelector('#case-study');
-    assert.ok(section);
-    for (const field of ['title', 'introduction', 'brandOrigin', 'industry', 'targetMarket', 'challenge', 'outcomeTitle', 'outcomeDescription', 'whyItWorked']) {
-      assert.ok(clean(section.textContent ?? '').includes(useCase[field]), field);
-    }
-    assert.equal(section.querySelectorAll('li').length, useCase.deliverables.length);
-    assert.ok(detail.querySelector('a[href="/case-studies"]'));
-    assert.ok(detail.querySelector('a[href="/#calendly-section"]'));
+  if (!sanityMode) {
+    assert.equal(listing.querySelectorAll('#case-studies h3').length, 0);
+    assert.ok(listing.body.textContent?.includes('More client stories are coming soon.'));
+    assert.equal(seed.useCases.length, 0);
   }
+  assert.equal(listing.querySelector('a[href="/case-studies/1vO0nM420B6tmj07YsUDDj"]'), null);
 });

@@ -2,26 +2,36 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import Container from '../../components/shared/Container.astro';
-import CaseStudy from '../../components/sections/CaseStudy.astro';
+import ArticleBody from '../../components/content/ArticleBody.astro';
+import AuthorCard from '../../components/content/AuthorCard.astro';
+import CmsImage from '../../components/content/CmsImage.astro';
 import { getCaseStudies } from '../../lib/sanity/content.server';
+import { formatDate, readingTime } from '../../lib/sanity/content-utils';
+import { imageUrl } from '../../lib/sanity/image';
 
 export const getStaticPaths = (async () => {
-  const cases = await getCaseStudies();
-  return cases.map((useCase) => ({ params: { slug: useCase.slug }, props: { useCase } }));
+  const posts = await getCaseStudies();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-const { useCase } = Astro.props;
+const { post } = Astro.props;
+const socialImage = post.localCoverImage || (post.coverImage?.asset ? imageUrl(post.coverImage, 1200, 630, post.coverImage.displayStyle) : undefined);
 ---
-
-<Layout title={useCase.title} description={useCase.introduction} ogType="article">
-  <main class="pt-32 lg:pt-36 pb-24 min-h-screen">
+<Layout title={post.seoTitle || post.title} description={post.seoDescription || post.description} image={socialImage} ogType="article" publishedAt={post.publishedAt}>
+  <article class="pt-32 pb-16 md:pt-36 md:pb-24 bg-body min-h-screen">
     <Container>
-      <a href="/case-studies" class="inline-block mb-8 text-primary hover:underline">← All case studies</a>
+      <div class="max-w-3xl mx-auto">
+        <a href="/case-studies" class="inline-block mb-6 text-primary hover:underline">← All case studies</a>
+        <h1 class="text-4xl font-bold text-heading-1 mb-4">{post.title}</h1>
+        <p class="text-heading-3 mb-8 flex flex-wrap gap-2">
+          <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time><span>•</span><span>{readingTime(post.body)}</span>{post.category && <><span>•</span><span>{post.category}</span></>}
+          {post.author?.name && <><span>•</span><span>By {post.author.name}</span></>}
+        </p>
+        <CmsImage image={post.coverImage} src={post.localCoverImage} alt={post.coverImage?.alt || post.localCoverAlt || post.title} displayStyle={post.coverImage?.displayStyle} className="mb-8 rounded-xl" eager />
+        <ArticleBody value={post.body} />
+        <AuthorCard author={post.author} />
+      </div>
     </Container>
-    <CaseStudy useCase={useCase} />
-    <Container className="mt-12">
-      <a href="/#calendly-section" class="inline-block rounded-full bg-primary px-6 py-3 text-white font-semibold">Discuss your launch →</a>
-    </Container>
-  </main>
+  </article>
 </Layout>
