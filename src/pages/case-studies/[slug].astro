@@ -1,0 +1,27 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import Container from '../../components/shared/Container.astro';
+import CaseStudy from '../../components/sections/CaseStudy.astro';
+import { getCaseStudies } from '../../lib/sanity/content.server';
+
+export const getStaticPaths = (async () => {
+  const cases = await getCaseStudies();
+  return cases.map((useCase) => ({ params: { slug: useCase.slug }, props: { useCase } }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { useCase } = Astro.props;
+---
+
+<Layout title={useCase.title} description={useCase.introduction} ogType="article">
+  <main class="pt-32 lg:pt-36 pb-24 min-h-screen">
+    <Container>
+      <a href="/case-studies" class="inline-block mb-8 text-primary hover:underline">← All case studies</a>
+    </Container>
+    <CaseStudy useCase={useCase} />
+    <Container className="mt-12">
+      <a href="/#calendly-section" class="inline-block rounded-full bg-primary px-6 py-3 text-white font-semibold">Discuss your launch →</a>
+    </Container>
+  </main>
+</Layout>

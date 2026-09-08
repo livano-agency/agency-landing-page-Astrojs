@@ -73,6 +73,7 @@ export type UseCase = {
   _updatedAt: string;
   _rev: string;
   title: string;
+  slug: Slug;
   introduction: string;
   brandOrigin: string;
   industry: string;
@@ -86,6 +87,12 @@ export type UseCase = {
   showOnHomepage?: boolean;
   displayOrder: number;
   migrationSource?: string;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
 };
 
 export type AuthorReference = {
@@ -140,12 +147,6 @@ export type Category = {
   title: string;
   slug: Slug;
   description?: string;
-};
-
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
 };
 
 export type Author = {
@@ -273,12 +274,12 @@ export type AllSanitySchemaTypes =
   | BlockContent
   | CategoryReference
   | UseCase
+  | Slug
   | AuthorReference
   | BlogPost
   | SanityImageCrop
   | SanityImageHotspot
   | Category
-  | Slug
   | Author
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -323,11 +324,12 @@ export type BLOG_POSTS_QUERY_RESULT = Array<{
 }>;
 
 // Source: ../src/lib/sanity/queries.ts
-// Variable: HOME_USE_CASES_QUERY
-// Query: *[_type == "useCase" && showOnHomepage == true] | order(displayOrder asc, _id asc) {    _id, title, introduction, brandOrigin, industry, targetMarket, challenge,    "category": select(defined(categoryRef) => categoryRef->title, industry),    deliverables, outcomeTitle, outcomeDescription, whyItWorked  }
-export type HOME_USE_CASES_QUERY_RESULT = Array<{
+// Variable: CASE_STUDIES_QUERY
+// Query: *[_type == "useCase"] | order(displayOrder asc, _id asc) {    _id, title, "slug": coalesce(slug.current, _id), introduction, brandOrigin, industry, targetMarket, challenge,    "category": select(defined(categoryRef) => categoryRef->title, industry),    deliverables, outcomeTitle, outcomeDescription, whyItWorked  }
+export type CASE_STUDIES_QUERY_RESULT = Array<{
   _id: string;
   title: string;
+  slug: string;
   introduction: string;
   brandOrigin: string;
   industry: string;
@@ -344,7 +346,7 @@ export type HOME_USE_CASES_QUERY_RESULT = Array<{
 declare global {
   interface SanityQueries {
     '\n  *[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc, _id asc) {\n    _id, title, "slug": slug.current, description, publishedAt,\n    "category": select(defined(categoryRef) => categoryRef->title, category),\n    author->{_id, name, slug, role, profileImage, shortBio, ctaButtonText, ctaUrl},\n    coverImage, body, seoTitle, seoDescription\n  }\n': BLOG_POSTS_QUERY_RESULT;
-    '\n  *[_type == "useCase" && showOnHomepage == true] | order(displayOrder asc, _id asc) {\n    _id, title, introduction, brandOrigin, industry, targetMarket, challenge,\n    "category": select(defined(categoryRef) => categoryRef->title, industry),\n    deliverables, outcomeTitle, outcomeDescription, whyItWorked\n  }\n': HOME_USE_CASES_QUERY_RESULT;
+    '\n  *[_type == "useCase"] | order(displayOrder asc, _id asc) {\n    _id, title, "slug": coalesce(slug.current, _id), introduction, brandOrigin, industry, targetMarket, challenge,\n    "category": select(defined(categoryRef) => categoryRef->title, industry),\n    deliverables, outcomeTitle, outcomeDescription, whyItWorked\n  }\n': CASE_STUDIES_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

@@ -1119,6 +1119,7 @@
     {
       "_type": "useCase",
       "migrationSource": "legacy-case-study/french-wellness",
+      "slug": { "_type": "slug", "current": "french-wellness" },
       "title": "Helping a French Wellness Brand Prepare for TikTok Shop USA",
       "introduction": "A French health and wellness brand came to LaunchLegit ready to sell in the U.S. They already had their company and EIN in place, but needed the right operational setup to launch properly.",
       "brandOrigin": "France",

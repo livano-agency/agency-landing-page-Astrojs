@@ -1,9 +1,9 @@
 import { createClient } from '@sanity/client';
-import { BLOG_POSTS_QUERY, HOME_USE_CASES_QUERY } from './queries';
-import type { BLOG_POSTS_QUERY_RESULT, HOME_USE_CASES_QUERY_RESULT } from './sanity.types';
+import { BLOG_POSTS_QUERY, CASE_STUDIES_QUERY } from './queries';
+import type { BLOG_POSTS_QUERY_RESULT, CASE_STUDIES_QUERY_RESULT } from './sanity.types';
 
 export type BlogPost = BLOG_POSTS_QUERY_RESULT[number];
-export type UseCase = HOME_USE_CASES_QUERY_RESULT[number];
+export type UseCase = CASE_STUDIES_QUERY_RESULT[number];
 // Local image paths are only used in the explicit pre-migration local mode.
 export type RenderablePost = Omit<BlogPost, 'coverImage'> & {
   coverImage: BlogPost['coverImage'] | null;
@@ -51,12 +51,23 @@ export async function getBlogPosts(): Promise<RenderablePost[]> {
   return posts;
 }
 
-export async function getHomeUseCases(): Promise<UseCase[]> {
+export async function getCaseStudies(): Promise<UseCase[]> {
+  let cases: UseCase[];
   if (source === 'local') {
     const { default: seed } = await import('../../../content/seed.json');
-    return seed.useCases.filter((item) => item.showOnHomepage)
-      .sort((a, b) => a.displayOrder - b.displayOrder)
-      .map((item) => ({ ...item, _id: item.migrationSource, category: item.industry }));
+    cases = [...seed.useCases]
+      .sort((a, b) => a.displayOrder - b.displayOrder || a.migrationSource.localeCompare(b.migrationSource))
+      .map((item) => ({ ...item, _id: item.migrationSource, slug: item.slug.current, category: item.industry }));
+  } else {
+    cases = await client.fetch(CASE_STUDIES_QUERY);
   }
-  return client.fetch(HOME_USE_CASES_QUERY);
+  // Older published documents use their stable ID until an editor sets a slug.
+  const slugs = new Set<string>();
+  for (const item of cases) {
+    if (!item.slug || !/^[a-zA-Z0-9_-][a-zA-Z0-9._-]*$/.test(item.slug) || slugs.has(item.slug)) {
+      throw new Error(`Invalid or duplicate case study slug: ${item.slug}`);
+    }
+    slugs.add(item.slug);
+  }
+  return cases;
 }

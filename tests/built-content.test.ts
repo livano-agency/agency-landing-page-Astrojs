@@ -56,14 +56,28 @@ test('blog cards match their article titles, categories and reading times', () =
   });
 });
 
-test('homepage keeps the case study anchor and complete migrated use case', () => {
-  const document = page('index.html');
-  const section = document.querySelector('#case-study');
-  assert.ok(section);
-  const useCase = seed.useCases[0];
-  for (const field of ['title', 'introduction', 'brandOrigin', 'industry', 'targetMarket', 'challenge', 'outcomeTitle', 'outcomeDescription', 'whyItWorked']) {
-    assert.ok(clean(section.textContent ?? '').includes(useCase[field]), field);
+test('case studies move from the homepage to a listing and complete detail pages', () => {
+  const home = page('index.html');
+  assert.equal(home.querySelector('#case-study'), null);
+  assert.ok(home.querySelector('a[href="/case-studies"]'));
+  assert.equal(home.querySelector('a[href="/#case-study"]'), null);
+  const listing = page('case-studies/index.html');
+  assert.equal(listing.querySelector('h1')?.textContent?.trim(), 'Case Studies');
+  for (const useCase of seed.useCases) {
+    const card = [...listing.querySelectorAll('main article')].find(item => item.querySelector('h2')?.textContent?.trim() === useCase.title);
+    assert.ok(card);
+    const href = card.querySelector('a')?.getAttribute('href');
+    assert.ok(href?.startsWith('/case-studies/'));
+    const detail = page(`${href.slice(1)}/index.html`);
+    assert.equal(detail.querySelector('h1')?.textContent, useCase.title);
+    assert.equal(detail.querySelector('meta[name="description"]')?.getAttribute('content'), useCase.introduction);
+    const section = detail.querySelector('#case-study');
+    assert.ok(section);
+    for (const field of ['title', 'introduction', 'brandOrigin', 'industry', 'targetMarket', 'challenge', 'outcomeTitle', 'outcomeDescription', 'whyItWorked']) {
+      assert.ok(clean(section.textContent ?? '').includes(useCase[field]), field);
+    }
+    assert.equal(section.querySelectorAll('li').length, useCase.deliverables.length);
+    assert.ok(detail.querySelector('a[href="/case-studies"]'));
+    assert.ok(detail.querySelector('a[href="/#calendly-section"]'));
   }
-  assert.equal(section.querySelectorAll('li').length, 3);
-  assert.ok(document.querySelector('a[href="/#case-study"]'));
 });

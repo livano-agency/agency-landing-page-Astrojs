@@ -1,19 +1,20 @@
 ---
 import Container from "../shared/Container.astro";
 import Paragraph from "../shared/Paragraph.astro";
-import { getHomeUseCases } from "../../lib/sanity/content.server";
+import type { UseCase } from "../../lib/sanity/content.server";
 
-const useCases = await getHomeUseCases();
+interface Props { useCase: UseCase }
+const { useCase } = Astro.props;
 ---
 
 <section id="case-study">
   <Container className="space-y-20">
-    {useCases.map((useCase) => <div class="space-y-10">
+    <div class="space-y-10">
     <div class="max-w-3xl space-y-4">
       <span class="inline-flex w-max rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
         Case Study
       </span>
-      <h2 class="text-heading-1 font-semibold text-2xl sm:text-3xl md:text-4xl">{useCase.title}</h2>
+      <h1 class="text-heading-1 font-semibold text-2xl sm:text-3xl md:text-4xl">{useCase.title}</h1>
       <Paragraph>
         {useCase.introduction}
       </Paragraph>
@@ -79,7 +80,6 @@ const useCases = await getHomeUseCases();
         </div>
       </aside>
     </div>
-    </div>)}
-    {useCases.length === 0 && <p class="text-heading-3">More client stories are coming soon.</p>}
+    </div>
   </Container>
 </section>

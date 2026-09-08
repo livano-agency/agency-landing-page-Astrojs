@@ -1,6 +1,6 @@
 # LaunchLegit content editing
 
-The Astro website stays at the repository root. `studio/` is an independent Sanity Studio connected to **LaunchLegit**, project **lwe89m68**, dataset **production**, organization **of2GOtAoL**. Only blog posts and homepage use cases are managed in Sanity.
+The Astro website stays at the repository root. `studio/` is an independent Sanity Studio connected to **LaunchLegit**, project **lwe89m68**, dataset **production**, organization **of2GOtAoL**. Blog posts and case studies are managed in Sanity.
 
 The editor is deployed at **https://launchlegit-lwe89m68.sanity.studio/**. The original two blog posts and French wellness case study have been imported and published. The website reads Sanity content. The project's active `cloudflare` webhook triggers production rebuilds for published blog, case study, author and category changes.
 
@@ -55,7 +55,7 @@ The seed preserves all article body text, headings, ordered and unordered lists,
 
 - `/blog/how-to-sell-on-tiktok-shop`
 - `/blog/tiktok-shop-canada`
-- `/#case-study`
+- `/case-studies` (replaces the former homepage case study section)
 
 Run these commands from the repository root after signing in to the account that owns the project:
 
@@ -80,7 +80,7 @@ Check the imported content in Studio, change `SANITY_CONTENT_SOURCE` to `sanity`
 
 **Blog → Blog Posts:** Create a post, fill in the title, URL slug, summary, category, publication date, cover image and alt text, and article body. Select an optional author to show a byline on the listing and article, plus an author card beneath the article. Search/sharing fields are optional and default to the title and summary. The body supports paragraphs, headings, subheadings, quotes, lists, bold, italic, links and captioned images. Keep a published slug unchanged to preserve inbound links; a slug change requires a hosting redirect from the old URL. The publication date controls display and sorting, not scheduled publishing.
 
-**Case Studies → Case Studies:** Fill in the category, brand origin, industry, target market, challenge, deliverables and outcome. Enable **Show on homepage** and use **Display order** to arrange multiple cases (lower numbers first). Cases have no author field and use the existing homepage layout; this phase does not add separate case detail URLs.
+**Case Studies → Case Studies:** Fill in the title, URL slug, introduction, category, brand origin, industry, target market, challenge, deliverables and outcome. Publish to show a card on `/case-studies` and a full page at `/case-studies/{slug}`. Use **Display order** to arrange cards (lower numbers first). Existing published cases without slugs use their stable document IDs as URLs until a slug is set; changing an established URL requires a hosting redirect. The old homepage visibility field is retained but no longer controls publication. Unpublish to remove a case from both the listing and detail routes. Case studies no longer appear on the homepage. Deploy the updated Studio to make the slug editor available.
 
 **Categories:** Both menus open the same shared category records. Each has a title, slug and optional description. Create and publish a category, then select it in a blog or case study. Changing its title updates every reference on the next website build. Existing blog category labels and case study industries are converted by `categories:migrate`; its dry run is `categories:check`. The migration preserves original fields and draft states, skips existing references and uses revision checks to avoid overwriting concurrent edits. Run only one migration at a time. Category slugs are metadata; category archive pages are not part of this setup.
 
@@ -141,4 +141,4 @@ Immediately after importing, `npm run build && npm run test:published` also chec
 
 TypeGen scans `src/lib/sanity/queries.ts` and writes `src/lib/sanity/sanity.types.ts`; commit the generated types after schema/query changes. The frontend TypeScript config excludes Studio so each application resolves its own dependencies. The built-content tests expect local seed content and check actual rendered HTML, URLs, metadata, lists, the booking link, and case study text.
 
-Live draft preview, visual editing, site-wide CMS settings and separate use case pages are outside this initial integration.
+Live draft preview, visual editing, site-wide CMS settings are outside this integration.

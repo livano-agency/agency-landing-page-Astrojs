@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/shared/Container.astro';
+import Title from '../components/shared/Title.astro';
+import Paragraph from '../components/shared/Paragraph.astro';
+import { getCaseStudies } from '../lib/sanity/content.server';
+
+const cases = await getCaseStudies();
+---
+
+<Layout title="Case Studies" description="See how LaunchLegit helps international brands launch and grow on TikTok Shop in the United States.">
+  <main id="case-studies" class="relative pt-32 lg:pt-36 pb-24 min-h-screen">
+    <Container className="space-y-16">
+      <div class="text-center max-w-2xl mx-auto space-y-4">
+        <Title>Case Studies</Title>
+        <Paragraph>Explore the challenges, work, and results behind our clients’ U.S. TikTok Shop launches.</Paragraph>
+      </div>
+      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        {cases.map((item) => (
+          <article class="bg-box-bg border border-box-border rounded-xl p-6 sm:p-8 shadow-md hover:shadow-xl transition space-y-4">
+            {item.category && <p class="text-sm font-semibold text-primary">{item.category}</p>}
+            <h2 class="text-2xl font-bold text-heading-1">
+              <a href={`/case-studies/${item.slug}`} class="hover:underline">{item.title}</a>
+            </h2>
+            <p class="text-heading-3">{item.introduction}</p>
+            <p class="text-sm text-heading-3">{item.brandOrigin} → {item.targetMarket}</p>
+            <a href={`/case-studies/${item.slug}`} class="inline-block text-primary font-semibold hover:underline" aria-label={`Read case study: ${item.title}`}>Read case study →</a>
+          </article>
+        ))}
+      </div>
+      {cases.length === 0 && <p class="text-center text-heading-3">More client stories are coming soon.</p>}
+    </Container>
+  </main>
+</Layout>

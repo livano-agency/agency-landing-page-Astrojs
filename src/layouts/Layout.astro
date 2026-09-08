@@ -1,6 +1,7 @@
 ---
 import Footer from "../components/elements/Footer.astro";
 import Navbar from "../components/elements/Navbar.astro";
+import "../styles/fonts.css";
 
 export interface Props {
   title: string;
@@ -34,8 +35,11 @@ const socialImage = image && (image.startsWith('https://') ? image : Astro.site 
     {publishedAt && <meta property="article:published_time" content={publishedAt} />}
     <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
     <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/raleway/raleway-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
   </head>
   <body class="overflow-hidden overflow-y-auto bg-body">
