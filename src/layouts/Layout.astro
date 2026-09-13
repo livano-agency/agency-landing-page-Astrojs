@@ -22,7 +22,8 @@ const socialImage = image && (image.startsWith('https://') ? image : Astro.site 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/png" href="/logos/logo-I.png" />
+    <link rel="icon" type="image/png" href="/logos/logo-ll.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" href="/logos/logo-I.png" media="(prefers-color-scheme: dark)" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{pageTitle}</title>

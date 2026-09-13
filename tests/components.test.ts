@@ -58,13 +58,19 @@ test('all image display modes control both cropping and rendered image fit', () 
   assert.equal(document.querySelector('#legacy-inline .cms-image'), null);
 });
 
-test('author cards show supplied details, omit empty authors and reject unsafe CTA URLs', () => {
+test('closing cards preserve author details and always provide a safe booking CTA', () => {
   const author = document.querySelector('#author');
-  assert.equal(author?.querySelector('h2')?.textContent, 'About Test Author');
+  assert.equal(author?.querySelector('h2')?.textContent, 'Test Author');
   assert.ok(author?.textContent?.includes('Editor'));
   assert.ok(author?.textContent?.includes('Writes useful guides.'));
   assert.equal(author?.querySelector('a')?.getAttribute('href'), '/#calendly-section');
-  assert.equal(author?.querySelector('a')?.textContent, 'Book a call');
-  assert.equal(document.querySelector('#no-author aside'), null);
-  assert.equal(document.querySelector('#unsafe-cta a'), null);
+  assert.ok(author?.querySelector('a')?.textContent?.includes('Book a call'));
+  const fallback = document.querySelector('#no-author aside');
+  assert.equal(fallback?.querySelector('h2')?.textContent, 'Rabii Babou');
+  assert.equal(fallback?.querySelector('img')?.getAttribute('src'), '/images/founder_rabii.jpg');
+  assert.equal(fallback?.querySelector('a')?.getAttribute('href'), '/#calendly-section');
+  assert.ok(fallback?.querySelector('a')?.textContent?.includes('Book a Call with Rabii'));
+  assert.equal(document.querySelector('#unsafe-cta a')?.getAttribute('href'), '/#calendly-section');
+  assert.equal(document.querySelector('#legacy-author a')?.getAttribute('href'), '/#calendly-section');
+  assert.equal(document.querySelector('#legacy-author img')?.getAttribute('src'), '/images/founder_lokman.jpeg');
 });

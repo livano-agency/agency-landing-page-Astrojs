@@ -25,6 +25,7 @@ const linkBody = links.map(link => ({
   <section id="legacy-inline"><PortableImage node={{ ...image, _key: 'legacy' }} /></section>
   <section id="author"><AuthorCard author={author} /></section>
   <section id="no-author"><AuthorCard author={null} /></section>
+  <section id="legacy-author"><AuthorCard author={{ ...author, name: 'Lokman Sahnoun', ctaUrl: 'https://launchlegit.com/' }} /></section>
   <section id="unsafe-cta"><AuthorCard author={{ ...author, ctaUrl: 'javascript:alert(1)' }} /></section>
   <section id="body-links"><ArticleBody value={linkBody} /></section>
 </body></html>
