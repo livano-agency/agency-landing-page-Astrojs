@@ -35,12 +35,12 @@ test('both original article URLs render all migrated text and correct metadata',
 
 test('blog cards match their article titles, categories and reading times', () => {
   const document = page('blog/index.html');
-  const headings = [...document.querySelectorAll('#blog h3')];
+  const headings = [...document.querySelectorAll('#blog [data-cms-card] h3')];
   if (!sanityMode) assert.deepEqual(headings.map(node => node.textContent), seed.posts.map(post => post.title));
   seed.posts.forEach((post) => {
     const heading = headings.find(node => node.closest('a')?.getAttribute('href') === `/blog/${post.slug.current}`);
     assert.equal(heading?.textContent, post.title);
-    const card = heading?.closest('div.bg-box-bg');
+    const card = heading?.closest('[data-cms-card]');
     assert.ok(card?.textContent?.includes(post.category));
     assert.ok(card?.textContent?.includes(readingTime(post.body)));
     const image = card?.querySelector('img');
@@ -62,7 +62,7 @@ test('case study listing stays available after deleting the original study', () 
   assert.ok(home.querySelector('a[href="/case-studies"]'));
   assert.equal(home.querySelector('a[href="/#case-study"]'), null);
   const listing = page('case-studies/index.html');
-  assert.equal(listing.querySelector('h1')?.textContent?.trim(), 'Case Studies');
+  assert.equal(listing.querySelector('h1')?.textContent?.trim(), 'Cross-border launches, handled from setup to platform approval.');
   if (!sanityMode) {
     assert.equal(listing.querySelectorAll('#case-studies h3').length, 0);
     assert.ok(listing.body.textContent?.includes('More client stories are coming soon.'));

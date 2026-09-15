@@ -1,181 +1,56 @@
 ---
-import Footer from "../components/elements/Footer.astro";
-import Navbar from "../components/elements/Navbar.astro";
-import "../styles/fonts.css";
-
+import Footer from '../components/elements/Footer.astro';
+import Navbar from '../components/elements/Navbar.astro';
+import '../styles/site.css';
 export interface Props {
   title: string;
   description?: string;
   image?: string;
   ogType?: 'website' | 'article';
   publishedAt?: string;
+  noindex?: boolean;
 }
-
-const { title, description = 'LaunchLegit helps international brands launch and run a U.S.-based TikTok Shop', image, ogType = 'website', publishedAt } = Astro.props;
-const pageTitle = `${title} - Launch legit`;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
-const socialImage = image && (image.startsWith('https://') ? image : Astro.site ? new URL(image, Astro.site).href : undefined);
+const { title, description = 'LaunchLegit helps international brands and creators launch and run a U.S. TikTok Shop.', image = '/images/dev-with-c-1.webp', ogType = 'website', publishedAt, noindex = false } = Astro.props;
+const pageTitle = `${title} | LaunchLegit`;
+const site = Astro.site || new URL('https://launchlegit.com');
+const canonical = new URL(Astro.url.pathname, site).href;
+const socialImage = new URL(image, site).href;
 ---
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/png" href="/logos/logo-ll.png" media="(prefers-color-scheme: light)" />
-    <link rel="icon" type="image/png" href="/logos/logo-I.png" media="(prefers-color-scheme: dark)" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{pageTitle}</title>
-    {canonical && <link rel="canonical" href={canonical} />}
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#172554" />
+    <link rel="icon" type="image/png" href="/logos/logo-ll.png" />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
-    {canonical && <meta property="og:url" content={canonical} />}
-    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
     {publishedAt && <meta property="article:published_time" content={publishedAt} />}
-    <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
-    <link
-      rel="preload"
-      href="/fonts/raleway/raleway-latin-wght-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem('ll-theme') || localStorage.getItem('appTheme');
+        const dark = theme === 'dark' || (!theme && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.documentElement.classList.toggle('dark', dark);
+      } catch {}
+    </script>
   </head>
-  <body class="overflow-hidden overflow-y-auto bg-body">
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
     <Navbar />
-    <slot />
+    <main id="main"><slot /></main>
     <Footer />
+    <script src="../scripts/site.ts"></script>
   </body>
-  <script>
-    const switchTheme = document.querySelector(
-      "[data-switch-theme]"
-    ) as HTMLButtonElement;
-
-    if (
-      localStorage.getItem("appTheme") === "dark" ||
-      (!("appTheme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    if (switchTheme) {
-      switchTheme.addEventListener("click", (e) => {
-        e.preventDefault();
-        const doc = document.documentElement;
-        if (doc) {
-          if (localStorage.getItem("appTheme")) {
-            if (localStorage.getItem("appTheme") === "light") {
-              doc.classList.add("dark");
-              localStorage.setItem("appTheme", "dark");
-            } else {
-              document.documentElement.classList.remove("dark");
-              localStorage.setItem("appTheme", "light");
-            }
-          } else {
-            if (doc.classList.contains("dark")) {
-              doc.classList.remove("dark");
-              localStorage.setItem("appTheme", "light");
-            } else {
-              doc.classList.add("dark");
-              localStorage.setItem("appTheme", "dark");
-            }
-          }
-        }
-      });
-    }
-  </script>
-  <script>
-    const toggleMenu = document.querySelector(
-      "[data-toggle-nav]"
-    ) as HTMLButtonElement;
-    const navbar = document.querySelector("[data-navbar]") as HTMLDivElement;
-    const overlayNav = document.querySelector(
-      "[data-nav-overlay]"
-    ) as HTMLDivElement;
-    if (toggleMenu) {
-      toggleMenu.addEventListener("click", e => {
-        e.preventDefault();
-        if (toggleMenu.getAttribute("data-open-nav") === "false") {
-          toggleMenu.setAttribute("data-open-nav", "true");
-          overlayNav.setAttribute("data-is-visible", "true");
-          document.body.classList.add("!overflow-y-hidden");
-		  navbar.style.height = `${navbar.scrollHeight}px`
-
-        }else{
-			toggleMenu.setAttribute("data-open-nav", "false");
-        	overlayNav.setAttribute("data-is-visible", "false");
-        	document.body.classList.remove("!overflow-y-hidden");
-		  	navbar.style.height = "0px"
-		}
-		
-        
-      });
-
-      navbar.addEventListener("click", () => {
-        toggleMenu.setAttribute("data-open-nav", "false");
-        overlayNav.setAttribute("data-is-visible", "false");
-        document.body.classList.remove("!overflow-y-hidden");
-		  	navbar.style.height = "0px"
-      });
-
-      overlayNav.addEventListener("click", () => {
-        toggleMenu.setAttribute("data-open-nav", "false");
-        	overlayNav.setAttribute("data-is-visible", "false");
-        	document.body.classList.remove("!overflow-y-hidden");
-		  	navbar.style.height = "0px"
-      });
-    }
-  </script>
 </html>
-<style is:global>
-  :root {
-    --color-bg: 255 255 255;
-    --color-border: 255 255 255;
-    --color-box: 255 255 255;
-    --box-border: 229 231 235;
-    --box-sd: 226 232 240 / 0.5;
-	--heading-1:  23 37 84;
-	--heading-2: 31 41 55;
-	--heading-3: 55 65 81;
-  }
-
-  .dark {
-    --color-bg: 3 7 18;
-    --color-box: 17 24 39;
-    --box-border: 243 244 246/0.1;
-    --box-sd: transparent;
-
-	
-	--heading-1:  255 255 255;
-	--heading-2:  243 244 246;
-	--heading-3:  209 213 219;
-  }
-
-  html{
-    scroll-behavior: smooth;
-  }
-  body {
-    font-family: "Raleway", sans-serif;
-  }
-
-  [data-toggle-nav][data-open-nav="true"] #line1 {
-    transform: translateY(0.375rem) rotate(40deg);
-  }
-  [data-toggle-nav][data-open-nav="true"] #line2 {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-  [data-toggle-nav][data-open-nav="true"] #line3 {
-    transform: translateY(-0.375rem) rotate(-40deg);
-  }
-
-  
-  [data-nav-overlay][data-is-visible="true"] {
-    visibility: visible;
-    display: flex;
-  }
-</style>

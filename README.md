@@ -1,4 +1,6 @@
-<h1>AgenceX Landing page</h1>
+<h1>LaunchLegit website</h1>
+
+The September 2026 redesign adds dedicated service, company, contact, and features pages. See [the design update](docs/redesign.md) for the page map and booking details.
 
 LaunchLegit's blog and case studies are connected to a standalone Sanity Studio. See [Sanity setup, migration and publishing](docs/sanity.md) for local development and activation instructions.
 

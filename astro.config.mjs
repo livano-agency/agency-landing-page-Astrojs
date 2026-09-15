@@ -15,7 +15,7 @@ const env = { ...loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), "
 
 // https://astro.build/config
 export default defineConfig({
-  site: env.PUBLIC_SITE_URL || undefined,
+  site: env.PUBLIC_SITE_URL || 'https://launchlegit.com',
   // Include page styles in the HTML to avoid render-blocking CSS requests.
   build: { inlineStylesheets: 'always' },
   integrations: [tailwind()]
